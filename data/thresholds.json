@@ -1,0 +1,86 @@
+{
+  "_note": "Fixed safety thresholds (green/yellow/red). The ML layer compares each astronaut to their personal baseline; these values are the safety net. Sources in SOURCES.md.",
+
+  "cardiovascular": {
+    "resting_hr_bpm": {
+      "green": { "max": 90 },
+      "yellow": { "min": 91, "max": 100 },
+      "red": { "above": 100, "below": 45 },
+      "source": "NASA-STD-3001 Vol. 1"
+    },
+    "systolic_bp": {
+      "green": { "min": 100, "max": 129 },
+      "yellow": { "ranges": [[130, 139], [91, 99]] },
+      "red": { "at_or_above": 140, "at_or_below": 90 },
+      "source": "NASA-STD-3001 Vol. 1"
+    },
+    "hrv_rmssd_ms": {
+      "green": { "min": 25 },
+      "yellow": { "min": 15, "max": 24 },
+      "red": { "below": 15, "sustained_hours": 48 },
+      "source": "ORBIT assumption"
+    }
+  },
+
+  "immune": {
+    "body_temp_c": {
+      "green": { "min": 36.5, "max": 37.4 },
+      "yellow": { "min": 37.5, "max": 38.0 },
+      "red": { "above": 38.0 },
+      "source": "Stahn et al. 2017"
+    },
+    "clinical_signs": {
+      "red": ["shingles", "persistent_ulcers"],
+      "source": "Crucian et al. (to confirm)"
+    }
+  },
+
+  "behavioral": {
+    "sleep_duration_h": {
+      "green": { "min": 7.0 },
+      "yellow": { "min": 5.0, "max": 6.9 },
+      "red": { "below": 5.0, "consecutive_nights": 3 },
+      "source": "Barger et al. 2014"
+    },
+    "pvt_lapses": {
+      "_definition": "lapse = reaction time > 355 ms on the 3-min PVT-B",
+      "green": { "max": 1 },
+      "yellow": { "min": 2, "max": 3 },
+      "red": { "min": 4 },
+      "source": "Basner et al. 2011"
+    },
+    "distress_score": {
+      "red": { "sd_above_baseline": 2 },
+      "source": "ORBIT assumption"
+    }
+  },
+
+  "bone": {
+    "bmd_loss_pct_per_month": {
+      "green": { "below": 1.0 },
+      "yellow": { "min": 1.0, "max": 1.5 },
+      "red": { "above": 1.5 },
+      "source": "NASA HRP Bone Fracture Evidence Report"
+    }
+  },
+
+  "radiation": {
+    "daily_dose_msv": {
+      "green": { "below": 2.0 },
+      "yellow": { "min": 2.0, "max": 20.0 },
+      "red": { "above": 20.0 },
+      "source": "Zeitlin et al. 2013 / NASA-STD-3001"
+    },
+    "spe_dose_rate_mgy_per_h": {
+      "red": { "above": 50 },
+      "source": "NASA HRP Acute Radiation Syndromes Report (to verify)"
+    },
+    "cumulative_mission_dose_msv": {
+      "green": { "below": 400 },
+      "yellow": { "min": 400, "max": 500 },
+      "red": { "above": 500 },
+      "career_limit": 600,
+      "source": "NASA-STD-3001 Vol. 1"
+    }
+  }
+}
