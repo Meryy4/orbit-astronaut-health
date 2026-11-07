@@ -20,15 +20,19 @@ Status:
 
 ## NASA standards & reports (also used as RAG documents)
 
-| Status | Document | Used for | Link |
-|---|---|---|---|
-| ⬜ | NASA-STD-3001 Vol. 1: Crew Health (check revision: Rev B 2022 or Rev C 2023) | 600 mSv career limit, cardiovascular limits, short-term radiation limits | _URL to add_ |
-| ⬜ | NASA-STD-3001 Vol. 2 (Rev D): Human Factors, Habitability, and Environmental Health | RAG corpus | _URL to add_ |
-| ⬜ | HRP Evidence Report: Risk of Bone Fracture Due to Spaceflight-induced Changes to Bone | Bone loss 1–1.5%/month | _NTRS URL to add_ |
-| ⬜ | HRP Evidence Report: Risk of Acute Radiation Syndromes Due to Solar Particle Events | SPE dose thresholds | _NTRS URL to add_ |
-| ⬜ | HRP Evidence Report: Risk of Performance Decrements… Sleep Loss, Circadian Desynchronization, and Work Overload | Sleep, PVT | _NTRS URL to add_ |
-| ⬜ | HRP Risk Record: Risk of Adverse Cognitive or Behavioral Conditions and Psychiatric Disorders | Mood, third-quarter phenomenon | _URL to add_ |
-| ⬜ | HRP Evidence Report: Risk of Adverse Health Event Due to Altered Immune Response | Immune risk | _NTRS URL to add_ |
+All 7 are public NASA documents. Local copies live in `rag_docs/` (not committed, see `.gitignore`); file names below match.
+
+| Status | Document | Used for | Local file | Link |
+|---|---|---|---|---|
+| 📄 | NASA-STD-3001 Vol. 1, **Rev C** (2023): Space Flight Human-System Standard, Crew Health | 600 mSv career limit, cardiovascular limits, short-term radiation limits | `07_nasa-std-3001-vol1-revC.pdf` | https://standards.nasa.gov/sites/default/files/standards/NASA/C//nasa-std-3001-vol-1-rev-c-signature.pdf |
+| 📄 | NASA-STD-3001 Vol. 2, **Rev E** (2025): Human Factors, Habitability, and Environmental Health | RAG corpus | `06_nasa-std-3001-vol2-revE.pdf` | https://ntrs.nasa.gov/citations/20250004555 |
+| 📄 | HRP Evidence Report: Risk of Bone Fracture due to Spaceflight-induced Changes to Bone (2024) | Bone loss 1–1.5%/month | `02_hrp-bone-fracture-2024.pdf` | https://ntrs.nasa.gov/citations/20240005190 |
+| 📄 | HRP Evidence Report: Risk of Acute Radiation Syndromes Due to Solar Particle Events (2016) | SPE dose thresholds | `01_hrp-acute-radiation-spe.pdf` | https://ntrs.nasa.gov/citations/20160003870 |
+| 📄 | HRP Evidence Report: Risk of Performance Decrements and Adverse Health Outcomes Resulting from Sleep Loss, Circadian Desynchronization, and Work Overload (2016) | Sleep, PVT | `03_hrp-sleep-circadian.pdf` | https://ntrs.nasa.gov/citations/20160003864 |
+| 📄 | HRP Evidence Report: Risk of Adverse Cognitive or Behavioral Conditions and Psychiatric Disorders (2016) | Mood, third-quarter phenomenon | `04_hrp-behavioral-health.pdf` | https://ntrs.nasa.gov/citations/20160004365 |
+| 📄 | HRP Evidence Report: Risk of Crew Adverse Health Event Due to Altered Immune Response (2013) | Immune risk | `05_hrp-immune.pdf` | https://ntrs.nasa.gov/citations/20140002769 |
+
+📄 here = PDF downloaded and opened as a valid file; figures still to re-read in the text.
 
 ## NASA data & APIs
 
@@ -57,7 +61,8 @@ Demo event: **May 2024 solar superstorm** (NOAA AR3664), flares X5.8 (May 11) an
 | scikit-learn | BSD-3-Clause | https://scikit-learn.org/ |
 | SHAP | MIT | https://github.com/shap/shap |
 | Ollama | MIT | https://ollama.com/ |
-| LLM model: _to choose_ | Must be Apache 2.0 (check the model card) | |
+| LLM model: `qwen3.5:4b` (via Ollama) | Apache 2.0 (checked with `ollama show --license`) | https://ollama.com/library/qwen3.5 |
+| Embedding model: `nomic-embed-text` (via Ollama) | _to check with `ollama show --license`_ | https://ollama.com/library/nomic-embed-text |
 
 ## AI usage disclosure
 

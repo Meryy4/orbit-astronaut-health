@@ -1,0 +1,385 @@
+<title>ORBIT Build Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: mission-control timeline. Three lanes (Meryeme | Ensemble | Oussama) per time block, stacked on phones. */
+:root {
+  --bg: #F2F4F7;
+  --surface: #FFFFFF;
+  --ink: #15203A;
+  --muted: #5B667D;
+  --line: #D9DEE7;
+  --mer: #1C6E8C;       /* Meryeme lane */
+  --mer-soft: #E2F0F5;
+  --ous: #6A4BA8;       /* Oussama lane */
+  --ous-soft: #EEE8F8;
+  --both: #B5651D;      /* together */
+  --both-soft: #F8ECE0;
+  --check: #A3262A;
+  --check-soft: #FBE7E6;
+  --ok: #2E7D4F;
+  --font-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1522; --surface: #172033; --ink: #E6EAF2; --muted: #9AA5BC; --line: #2A3550;
+    --mer: #5FB7D6; --mer-soft: #16303D; --ous: #A98BE6; --ous-soft: #2A2244;
+    --both: #E39B5A; --both-soft: #3A2A1C; --check: #F07A72; --check-soft: #3B1E20; --ok: #6CC793;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1522; --surface: #172033; --ink: #E6EAF2; --muted: #9AA5BC; --line: #2A3550;
+  --mer: #5FB7D6; --mer-soft: #16303D; --ous: #A98BE6; --ous-soft: #2A2244;
+  --both: #E39B5A; --both-soft: #3A2A1C; --check: #F07A72; --check-soft: #3B1E20; --ok: #6CC793;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+}
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 64px;
+  display: grid; gap: 48px;
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; }
+h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; }
+h3 { font-size: 1rem; font-weight: 600; }
+p { margin: 0; }
+.label {
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Header */
+header { display: grid; gap: 20px; }
+.head-row { display: flex; flex-wrap: wrap; gap: 24px; align-items: end; justify-content: space-between; }
+.head-row > div { min-width: 0; }
+.lede { color: var(--muted); max-width: 62ch; }
+.tminus {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 10px;
+  padding: 14px 18px; display: grid; gap: 2px; min-width: 180px;
+}
+.tminus .num { font-family: var(--font-mono); font-size: 2rem; font-weight: 500; line-height: 1.1; }
+.crew { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 500;
+}
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.chip.mer { background: var(--mer-soft); color: var(--mer); }
+.chip.ous { background: var(--ous-soft); color: var(--ous); }
+.chip.both { background: var(--both-soft); color: var(--both); }
+
+/* Contract callout */
+.contract {
+  border-left: 4px solid var(--both); background: var(--surface);
+  border-radius: 0 10px 10px 0; padding: 18px 22px; display: grid; gap: 8px;
+}
+.contract code { font-family: var(--font-mono); font-size: 0.88em; background: var(--both-soft); padding: 1px 6px; border-radius: 4px; }
+
+/* Phases */
+.phase { display: grid; gap: 16px; }
+.phase-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+.phase-head .label { color: var(--ink); opacity: 0.7; }
+.lanes-head, .block {
+  display: grid; grid-template-columns: 92px 1fr 1fr 1fr; gap: 10px;
+}
+.lanes-head { padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+.lanes-head .label:nth-child(2) { color: var(--mer); }
+.lanes-head .label:nth-child(3) { color: var(--both); }
+.lanes-head .label:nth-child(4) { color: var(--ous); }
+.time { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); padding-top: 10px; font-variant-numeric: tabular-nums; }
+.cell { min-width: 0; border-radius: 8px; padding: 10px 12px; font-size: 0.9rem; }
+.cell:empty { background: transparent; }
+.cell.mer { background: var(--mer-soft); }
+.cell.ous { background: var(--ous-soft); }
+.cell.both { background: var(--both-soft); grid-column: span 3; }
+.cell.both.one { grid-column: auto; }
+.cell ul { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
+.cell .who { display: none; }
+.cell .out { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.pause .cell { background: transparent; color: var(--muted); font-style: italic; padding-block: 4px; }
+
+.checkpoint {
+  display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: center;
+}
+.checkpoint .bar {
+  border: 1.5px dashed var(--check); background: var(--check-soft); color: var(--ink);
+  border-radius: 8px; padding: 10px 14px; font-size: 0.9rem;
+}
+.checkpoint .bar strong { color: var(--check); }
+.checkpoint .time { color: var(--check); font-weight: 500; padding-top: 0; }
+
+/* Modules table */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 640px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td.group { font-family: var(--font-display); font-weight: 600; background: var(--bg); }
+.owner { font-weight: 600; white-space: nowrap; }
+.owner.mer { color: var(--mer); }
+.owner.ous { color: var(--ous); }
+.owner.both { color: var(--both); }
+.prio { font-family: var(--font-mono); font-size: 0.75rem; white-space: nowrap; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); }
+.prio.must { border-color: var(--ok); color: var(--ok); }
+.prio.bonus { color: var(--muted); }
+
+/* Two columns */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; display: grid; gap: 10px; min-width: 0; align-content: start; }
+.panel ol, .panel ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.section { display: grid; gap: 16px; }
+.section > p { color: var(--muted); max-width: 70ch; }
+footer { color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); padding-top: 16px; }
+
+@media (max-width: 760px) {
+  .lanes-head { display: none; }
+  .block { grid-template-columns: 1fr; gap: 6px; }
+  .time { padding-top: 6px; }
+  .cell:empty { display: none; }
+  .cell.both { grid-column: auto; }
+  .cell .who { display: block; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .cell.mer .who { color: var(--mer); }
+  .cell.ous .who { color: var(--ous); }
+  .cell.both .who { color: var(--both); }
+  .checkpoint { grid-template-columns: 1fr; gap: 4px; }
+  .two { grid-template-columns: 1fr; }
+  .block, .checkpoint { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cell { transition: transform .15s ease; }
+}
+</style>
+
+<div class="wrap">
+
+  <header>
+    <span class="label">NASA Space Apps Challenge 2026 · Projet ORBIT</span>
+    <div class="head-row">
+      <div style="display:grid; gap:12px;">
+        <h1>Roadmap de construction</h1>
+        <p class="lede">Qui construit quoi, et quand. Chaque bloc a un propriétaire. Les blocs orange se font ensemble. Les lignes rouges sont des checkpoints : on vérifie que ça marche avant de continuer.</p>
+      </div>
+      <div class="tminus" aria-live="polite">
+        <span class="label">Avant le lancement</span>
+        <span class="num" id="tminus">J-8</span>
+        <span class="label" style="text-transform:none; letter-spacing:0;">Samedi 14 nov, 9h</span>
+      </div>
+    </div>
+    <div class="crew">
+      <span class="chip mer">Meryeme · IA/ML full stack · app, API, assistant</span>
+      <span class="chip ous">Oussama · data scientist · données, modèles ML</span>
+      <span class="chip both">Ensemble</span>
+    </div>
+  </header>
+
+  <div class="contract">
+    <span class="label" style="color:var(--both)">La seule dépendance qui compte</span>
+    <p><strong>Le format des données et de l'API</strong> (<code>docs/DATA_FORMAT.md</code>) doit être fixé avant de se séparer. Tant que vous respectez ce contrat, Meryeme peut coder l'app avec de fausses réponses pendant qu'Oussama construit les vrais modèles, sans s'attendre.</p>
+  </div>
+
+  <!-- PHASE 0 -->
+  <section class="phase" aria-labelledby="p0">
+    <div class="phase-head">
+      <h2 id="p0">Phase 0 · Préparation</h2>
+      <span class="label">Ven 6 → Ven 13 nov</span>
+    </div>
+    <div class="lanes-head"><span class="label">Quand</span><span class="label">Meryeme</span><span class="label">Ensemble</span><span class="label">Oussama</span></div>
+
+    <div class="block">
+      <span class="time">6 nov</span>
+      <div class="cell mer"><span class="who">Meryeme</span><ul><li><code>git push</code></li><li>Ajouter Oussama au repo</li><li>Écrire à l'organisateur local</li></ul></div>
+      <div class="cell"></div>
+      <div class="cell ous"><span class="who">Oussama</span><ul><li>Corriger les 4 points de <code>SOURCES.md</code></li></ul></div>
+    </div>
+
+    <div class="block">
+      <span class="time">7–8 nov</span>
+      <div class="cell both"><span class="who">Ensemble</span>Réunion de 1 h : répondre aux 5 questions de <code>DATA_FORMAT.md</code> (durée de mission, normale sur 7 ou 14 jours, jour de la démo).<span class="out">→ contrat API figé</span></div>
+    </div>
+
+    <div class="block">
+      <span class="time">9–12 nov</span>
+      <div class="cell mer"><span class="who">Meryeme</span><ul><li>Maquettes : PVT, jumeau numérique, timeline, alerte</li><li>Installer Ollama + modèle Apache 2.0</li><li>Télécharger les 7 documents NASA</li><li>Scénario de la vidéo (1 page)</li></ul></div>
+      <div class="cell"></div>
+      <div class="cell ous"><span class="who">Oussama</span><ul><li>Tester l'API DONKI (mai 2024)</li><li>Plan du générateur : 900 jours, tempête au bon moment</li><li>Choisir les variables de l'Isolation Forest</li></ul></div>
+    </div>
+
+    <div class="block">
+      <span class="time">13 nov</span>
+      <div class="cell both"><span class="who">Ensemble</span>Lire le guide de soumission 2026. Installer Node, Python, FastAPI et Ollama sur les deux ordis. Dormir tôt.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 1 -->
+  <section class="phase" aria-labelledby="p1">
+    <div class="phase-head">
+      <h2 id="p1">Phase 1 · Construire le cœur</h2>
+      <span class="label">Samedi 14 nov</span>
+    </div>
+    <div class="lanes-head"><span class="label">Quand</span><span class="label">Meryeme</span><span class="label">Ensemble</span><span class="label">Oussama</span></div>
+
+    <div class="block">
+      <span class="time">09:00</span>
+      <div class="cell both"><span class="who">Ensemble</span>Relire le contrat API, créer la structure <code>frontend/</code> et <code>backend/</code>, se répartir les branches git.</div>
+    </div>
+
+    <div class="block">
+      <span class="time">10:00</span>
+      <div class="cell mer"><span class="who">Meryeme</span>Backend FastAPI avec les endpoints qui renvoient de fausses données. Test PVT dans React.<span class="out">→ /checkin, PVT jouable</span></div>
+      <div class="cell"></div>
+      <div class="cell ous"><span class="who">Oussama</span>Générateur : astronaute fictif sur 900 jours, calibré sur les chiffres NASA, avec les tempêtes DONKI.<span class="out">→ mission.json</span></div>
+    </div>
+
+    <div class="block pause"><span class="time">13:00</span><div class="cell both">Pause</div></div>
+
+    <div class="block">
+      <span class="time">14:00</span>
+      <div class="cell mer"><span class="who">Meryeme</span>Jumeau numérique 2D + dashboard des 5 systèmes.<span class="out">→ écran principal</span></div>
+      <div class="cell"></div>
+      <div class="cell ous"><span class="who">Oussama</span>Normale personnelle + <code>thresholds.json</code> + Isolation Forest + SHAP.<span class="out">→ analysis par jour</span></div>
+    </div>
+
+    <div class="block">
+      <span class="time">18:00</span>
+      <div class="cell both"><span class="who">Ensemble</span>Brancher les vrais modèles d'Oussama à la place des fausses données de l'API.</div>
+    </div>
+
+    <div class="block">
+      <span class="time">19:00</span>
+      <div class="cell mer"><span class="who">Meryeme</span>Timeline de mission (slider jour par jour) + panneau d'alertes et d'actions.</div>
+      <div class="cell"></div>
+      <div class="cell ous"><span class="who">Oussama</span>Prédiction (os, radiation) + écart entre le ressenti déclaré et les données.</div>
+    </div>
+
+    <div class="checkpoint">
+      <span class="time">22:00</span>
+      <div class="bar"><strong>Checkpoint 1.</strong> L'app marche de bout en bout, même moche : check-in → analyse → alerte → action. Si quelque chose bloque, on coupe une fonctionnalité, pas le sommeil.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="phase" aria-labelledby="p2">
+    <div class="phase-head">
+      <h2 id="p2">Phase 2 · Finir et soumettre</h2>
+      <span class="label">Dimanche 15 nov</span>
+    </div>
+    <div class="lanes-head"><span class="label">Quand</span><span class="label">Meryeme</span><span class="label">Ensemble</span><span class="label">Oussama</span></div>
+
+    <div class="block">
+      <span class="time">09:00</span>
+      <div class="cell mer"><span class="who">Meryeme</span>Assistant RAG : Ollama + documents NASA, avec les sources citées dans la réponse.<span class="out">→ /assistant/ask</span></div>
+      <div class="cell"></div>
+      <div class="cell ous"><span class="who">Oussama</span>Scénario de démo « jour 412 : tempête solaire » + vérification des résultats du ML + graphiques.</div>
+    </div>
+
+    <div class="checkpoint">
+      <span class="time">12:00</span>
+      <div class="bar"><strong>Checkpoint 2.</strong> Le RAG marche ? Oui, on le garde. Non, on le présente comme amélioration future et on passe aux finitions.</div>
+    </div>
+
+    <div class="block">
+      <span class="time">13:00</span>
+      <div class="cell both"><span class="who">Ensemble</span>Finitions, bugs, déploiement de l'app en ligne.</div>
+    </div>
+
+    <div class="block">
+      <span class="time">15:00</span>
+      <div class="cell both"><span class="who">Ensemble</span>Vidéo démo, README avec captures, <code>SOURCES.md</code> complet, texte de la soumission.</div>
+    </div>
+
+    <div class="checkpoint">
+      <span class="time">18:00</span>
+      <div class="bar"><strong>Soumettre.</strong> La limite est à 23:59, mais on soumet à 18h. Le reste du temps sert de marge.</div>
+    </div>
+  </section>
+
+  <!-- MODULES -->
+  <section class="section" aria-labelledby="mods">
+    <h2 id="mods">Qui possède quel module</h2>
+    <p>Le propriétaire d'un module décide comment il est fait et le termine. L'autre peut aider, mais ne modifie pas ses fichiers sans prévenir.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Module</th><th>Propriétaire</th><th>A besoin de</th><th>Priorité</th></tr></thead>
+        <tbody>
+          <tr><td class="group" colspan="4">Frontend (React)</td></tr>
+          <tr><td>Test PVT (3 min, lapse &gt; 355 ms)</td><td class="owner mer">Meryeme</td><td>—</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Check-in : 3 questions</td><td class="owner mer">Meryeme</td><td><code>/checkin</code></td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Jumeau numérique 2D (5 systèmes)</td><td class="owner mer">Meryeme</td><td>analysis</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Timeline de mission (slider)</td><td class="owner mer">Meryeme</td><td>mission.json</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Panneau alertes + actions + délai Terre</td><td class="owner mer">Meryeme</td><td>analysis</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Chat assistant</td><td class="owner mer">Meryeme</td><td><code>/assistant/ask</code></td><td><span class="prio bonus">Bonus</span></td></tr>
+          <tr><td class="group" colspan="4">Backend (FastAPI)</td></tr>
+          <tr><td>Structure + endpoints</td><td class="owner mer">Meryeme</td><td>contrat API</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>RAG : Ollama + documents NASA</td><td class="owner mer">Meryeme</td><td>7 documents</td><td><span class="prio bonus">Bonus</span></td></tr>
+          <tr><td class="group" colspan="4">Données & ML (Python)</td></tr>
+          <tr><td>Générateur de mission (900 jours)</td><td class="owner ous">Oussama</td><td>chiffres NASA</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>DONKI : récupération + cache</td><td class="owner ous">Oussama</td><td>clé api.nasa.gov</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Normale personnelle + seuils</td><td class="owner ous">Oussama</td><td><code>thresholds.json</code></td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Isolation Forest + SHAP</td><td class="owner ous">Oussama</td><td>générateur</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Écart ressenti / données</td><td class="owner ous">Oussama</td><td>PVT + check-in</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>Prédiction os / radiation</td><td class="owner ous">Oussama</td><td>générateur</td><td><span class="prio bonus">Bonus</span></td></tr>
+          <tr><td class="group" colspan="4">Livrables</td></tr>
+          <tr><td>Vidéo démo + texte de soumission</td><td class="owner both">Ensemble</td><td>app qui marche</td><td><span class="prio must">Indispensable</span></td></tr>
+          <tr><td>README + <code>SOURCES.md</code></td><td class="owner both">Ensemble</td><td>—</td><td><span class="prio must">Indispensable</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- RULES + CUTS -->
+  <section class="two">
+    <div class="panel">
+      <h3>Règles de travail à deux</h3>
+      <ul>
+        <li>Une branche git par personne, on fusionne aux deux moments ensemble (samedi 18h, dimanche 13h).</li>
+        <li>On respecte le contrat API. Si on doit le changer, on prévient l'autre avant.</li>
+        <li>Bloqué plus de 30 min ? On demande de l'aide tout de suite.</li>
+        <li>Chaque source utilisée va dans <code>SOURCES.md</code> au moment où on l'utilise.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Si on manque de temps, on coupe dans cet ordre</h3>
+      <ol>
+        <li>Assistant RAG → amélioration future</li>
+        <li>Prédiction os / radiation → amélioration future</li>
+        <li>Animations du jumeau numérique → couleurs fixes</li>
+        <li>Déploiement en ligne → la vidéo suffit</li>
+      </ol>
+      <p class="label" style="text-transform:none; letter-spacing:0;">On ne coupe jamais : PVT, détection d'anomalies, alertes avec actions, vidéo.</p>
+    </div>
+  </section>
+
+  <footer>
+    Repo : github.com/Meryy4/orbit-astronaut-health · Contrat API : docs/DATA_FORMAT.md · Seuils : data/thresholds.json
+  </footer>
+</div>
+
+<script>
+(function () {
+  var el = document.getElementById('tminus');
+  var launch = new Date(2026, 10, 14, 9, 0, 0);
+  var now = new Date();
+  var ms = launch - now;
+  if (ms <= 0) {
+    var end = new Date(2026, 10, 15, 23, 59, 0);
+    el.textContent = now < end ? 'En cours' : 'Terminé';
+    return;
+  }
+  var days = Math.ceil(ms / 86400000);
+  el.textContent = 'J-' + days;
+})();
+</script>

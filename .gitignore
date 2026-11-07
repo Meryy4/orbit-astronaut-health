@@ -1,0 +1,13 @@
+# NASA PDFs for the RAG assistant (public, linked in SOURCES.md)
+rag_docs/
+
+# Python
+.venv/
+__pycache__/
+
+# Node
+node_modules/
+
+# Secrets and OS files
+.env
+.DS_Store
