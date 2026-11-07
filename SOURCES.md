@@ -62,7 +62,7 @@ Demo event: **May 2024 solar superstorm** (NOAA AR3664), flares X5.8 (May 11) an
 | SHAP | MIT | https://github.com/shap/shap |
 | Ollama | MIT | https://ollama.com/ |
 | LLM model: `qwen3.5:4b` (via Ollama) | Apache 2.0 (checked with `ollama show --license`) | https://ollama.com/library/qwen3.5 |
-| Embedding model: `nomic-embed-text` (via Ollama) | _to check with `ollama show --license`_ | https://ollama.com/library/nomic-embed-text |
+| Embedding model: `nomic-embed-text` (via Ollama) | Apache 2.0 (checked with `ollama show --license`) | https://ollama.com/library/nomic-embed-text |
 
 ## AI usage disclosure
 
