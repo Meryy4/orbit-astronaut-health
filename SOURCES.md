@@ -18,6 +18,16 @@ Status:
 | 📄 | Stahn A.C. et al. (2017). Increased core body temperature in astronauts during long-duration space missions. *Scientific Reports*. | Core temperature +~1 °C ("space fever") | https://doi.org/10.1038/s41598-017-15560-w |
 | ⬜ | Crucian B. et al.: immune dysregulation / latent viral reactivation (EBV, VZV, CMV) in astronauts | Immune risk | Exact paper to confirm. A Crucian 2015 paper exists in *npj Microgravity* (https://doi.org/10.1038/npjmgrav.2015.13), not *Frontiers in Microbiology*. |
 
+## Research that shaped the concept
+
+| Status | Reference | What we took from it | Link |
+|---|---|---|---|
+| 📄 | Russell B. et al. (2023). The value of a spaceflight clinical decision support system for earth-independent medical operations. *npj Microgravity*. | Positioning: onboard decision support for an autonomous crew (EIMO) | https://doi.org/10.1038/s41526-023-00284-1 |
+| 📄 | NASA. Earth Independent Medical Operations (EIMO) overview. NTRS 20230016189. | Decision support advises, does not replace the crew medical officer; limited bandwidth and storage | https://ntrs.nasa.gov/citations/20230016189 |
+| 📄 | NASA Digital Astronaut Project: computational bone remodeling toolchain for exercise countermeasures. NTRS 20180004789 and NASA/TM-2018-219938 (NTRS 20190026643). | Exercise needed per individual is unclear and no prescription tool exists, which motivates the What-if simulator | https://ntrs.nasa.gov/citations/20180004789 · https://ntrs.nasa.gov/citations/20190026643 |
+| 📄 | NASA report on inflight health data and crew self-report. NTRS 20160012380. | Inflight health information relies heavily on crew self-report | https://ntrs.nasa.gov/api/citations/20160012380/downloads/20160012380.pdf |
+| 📄 | Mayo Clinic / Oxehealth suborbital camera vital-signs feasibility test. | Camera-based heart rate (rPPG) kept as future work: not yet validated on humans in flight | https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-researchers-to-study-if-hands-free-camera-in-space-can-monitor-vital-signs |
+
 ## NASA standards & reports (also used as RAG documents)
 
 All 7 are public NASA documents. Local copies live in `rag_docs/` (not committed, see `.gitignore`); file names below match.
@@ -51,6 +61,8 @@ Demo event: **May 2024 solar superstorm** (NOAA AR3664), flares X5.8 (May 11) an
 | HRV (RMSSD) red threshold | < 15 ms sustained 48 h | Operational assumption, autonomic stress proxy |
 | Mood/stress red threshold | Distress score > 2 SD above personal baseline | Operational assumption |
 | Mission dose orange/red | 400 / 500 mSv | Safety margin below the 600 mSv career limit |
+| What-if model coefficients (exercise → bone loss rate, shielded hours → dose, sleep → PVT lapses) | Illustrative linear values in the mockup | To be fitted from the HRP evidence reports before the demo |
+| Cumulative bone loss threshold | 10% | Illustrative fracture-risk proxy, to confirm in the HRP Bone Fracture report |
 
 ## Software & libraries
 

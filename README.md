@@ -8,11 +8,11 @@
 
 ## The problem
 
-On a mission to Mars, a message to Earth can take up to ~20 minutes one way. There is no doctor on call. Astronauts face radiation, isolation, altered gravity and a hostile closed environment, and they carry much of the responsibility for spotting health changes in themselves. They also tend to under-report symptoms.
+On a mission to Mars, a message to Earth can take up to ~20 minutes one way. There is no doctor on call. Astronauts face radiation, isolation, altered gravity and a hostile closed environment, and they carry much of the responsibility for spotting health changes in themselves. With limited medical equipment on board, inflight health information already relies heavily on crew self-report.
 
 ## Our solution
 
-ORBIT helps an astronaut **measure, understand and act on** their own health, without needing Earth.
+ORBIT helps an astronaut **measure, understand and act on** their own health, without needing Earth. It is a crew-facing decision support tool in the spirit of NASA's **Earth-Independent Medical Operations (EIMO)**: it advises and explains, it does not replace the crew medical officer.
 
 | Feature | What it does |
 |---|---|
@@ -23,7 +23,9 @@ ORBIT helps an astronaut **measure, understand and act on** their own health, wi
 | **Digital twin** | A 2D body view with risk levels for 5 systems: cardiovascular, bone, immune, radiation and behavioral. |
 | **Mission simulation** | A Mars mission timeline driven by real solar events from NASA's DONKI API. |
 | **Onboard AI assistant** | A local, open-source LLM with RAG over NASA documents. It works offline and cites its sources. |
+| **What-if simulator** | The astronaut tests a decision before taking it (exercise, sleep, shielding) and sees the forecasts move: bone threshold day, radiation limit day, vigilance. |
 | **Action plan** | What to do now, and when to escalate to the crew or to Earth (with the comm delay shown). |
+| **Earth report** | A compact, bandwidth-aware report for the flight surgeon, with the round-trip delay shown. |
 
 ## Tech stack
 
