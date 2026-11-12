@@ -6,10 +6,9 @@ reports. With the current plan, the model gives exactly the same forecasts as
 the analysis, so every difference shown comes from the change the user makes.
 """
 
-import math
 from statistics import mean
 
-from .analysis import BONE_THRESHOLD_PCT, _bone_rate_per_month, baseline, thresholds
+from .analysis import _bone_rate_per_month, baseline, bone_threshold_day, radiation_limit_day, thresholds
 from .mission import mission_days
 
 # Bone loss rate drops by this much (% per month) for each extra minute of daily resistance exercise.
@@ -54,14 +53,12 @@ def simulate(day: int, rec: dict, plan: dict, now: dict) -> dict:
     rate_now = _bone_rate_per_month(day)
     extra_ex = plan["resistance_min"] - now["resistance_min"]
     rate = rate_now if extra_ex == 0 else max(MIN_BONE_RATE, rate_now - BONE_PER_EXERCISE_MIN * extra_ex)
-    loss = -rec["bone"]["bmd_change_pct"]
-    bone_day = day if loss >= BONE_THRESHOLD_PCT else day + math.ceil((BONE_THRESHOLD_PCT - loss) / (rate / 30))
+    bone_day = bone_threshold_day(day, -rec["bone"]["bmd_change_pct"], rate)
 
     # Radiation
     limit = thresholds()["radiation"]["cumulative_mission_dose_msv"]["career_limit"]
     daily = base["daily_dose_msv"] * (1 - SHIELD_REDUCTION * plan["shield_h"] / 24)
-    left = limit - rec["radiation"]["cumulative_dose_msv"]
-    radiation_day = day if left <= 0 else day + math.ceil(left / daily)
+    radiation_day = radiation_limit_day(day, rec["radiation"]["cumulative_dose_msv"], daily, limit)
 
     # Vigilance
     extra_sleep = plan["sleep_h"] - now["sleep_h"]
