@@ -62,6 +62,13 @@ Demo event: **May 2024 solar superstorm** (NOAA AR3664), flares X5.8 (May 11) an
 | Mood/stress red threshold | Distress score > 2 SD above personal baseline | Operational assumption |
 | Mission dose orange/red | 400 / 500 mSv | Safety margin below the 600 mSv career limit |
 | What-if model coefficients (exercise → bone loss rate, shielded hours → dose, sleep → PVT lapses) | Illustrative linear values in the mockup | To be fitted from the HRP evidence reports before the demo |
+| Extra dose from replayed solar events | SEP: +12 mSv/day transit, +4 mSv/day Mars surface (half for 2 more days); X flare: +1.5 / +0.5 mSv | Order-of-magnitude assumption; Mars atmosphere shields part of the flux |
+| Nova's sleep | 7.3 ± 0.25 h/night | Above the ~6.1 h flight average (Barger 2014): fictional good sleeper |
+| Sleep debt → vigilance | +0.7 lapses and +4.5 % reaction time per hour of debt over 3 nights | Cumulative effect of sleep restriction (HRP sleep report), linear assumption |
+| Bone loss rate | 0.8 %/month in transit, 0.4 %/month on Mars | Below the 1–1.5 %/month without countermeasures (HRP bone report): daily exercise and 0.38 g |
+| Core temperature on Mars | 37.0 °C | Stahn 2017 measured ~+1 °C in microgravity; partial-gravity value assumed |
+| Illness episode, days 263–266 | Fever to 38.2 °C | Fictional event to show the immune system alert |
+| Anomaly threshold | Isolation Forest decision function < −0.09; factors shown if ≥ 2 SD from the astronaut's own 90-day mean | Calibrated on the simulated mission: all storyline days flagged, < 3 % of ordinary days |
 | Cumulative bone loss threshold | 10% | Illustrative fracture-risk proxy, to confirm in the HRP Bone Fracture report |
 
 ## Software & libraries
@@ -69,9 +76,17 @@ Demo event: **May 2024 solar superstorm** (NOAA AR3664), flares X5.8 (May 11) an
 | Library | License | Link |
 |---|---|---|
 | React | MIT | https://react.dev/ |
+| Vite | MIT | https://vite.dev/ |
+| Fonts: Sora, Inter, JetBrains Mono (Google Fonts) | SIL Open Font License 1.1 | https://fonts.google.com/ |
 | FastAPI | MIT | https://fastapi.tiangolo.com/ |
+| Uvicorn | BSD-3-Clause | https://www.uvicorn.org/ |
+| Pydantic | MIT | https://docs.pydantic.dev/ |
+| pytest | MIT | https://pytest.org/ |
+| HTTPX (tests) | BSD-3-Clause | https://www.python-httpx.org/ |
 | scikit-learn | BSD-3-Clause | https://scikit-learn.org/ |
 | SHAP | MIT | https://github.com/shap/shap |
+| NumPy | BSD-3-Clause | https://numpy.org/ |
+| pypdf (PDF text for the RAG index) | BSD-3-Clause | https://pypdf.readthedocs.io/ |
 | Ollama | MIT | https://ollama.com/ |
 | LLM model: `qwen3.5:4b` (via Ollama) | Apache 2.0 (checked with `ollama show --license`) | https://ollama.com/library/qwen3.5 |
 | Embedding model: `nomic-embed-text` (via Ollama) | Apache 2.0 (checked with `ollama show --license`) | https://ollama.com/library/nomic-embed-text |

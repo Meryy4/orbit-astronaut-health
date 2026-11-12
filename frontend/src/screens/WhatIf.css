@@ -1,0 +1,189 @@
+.wi-intro {
+  flex: 1 1 100%;
+  gap: 4px;
+}
+
+.wi-intro p {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--text-2);
+}
+
+.wi-decisions {
+  flex: 1 1 360px;
+  gap: 20px;
+}
+
+.wi-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn-primary,
+.btn-ghost {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.btn-ghost {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-2);
+}
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.slider-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.slider input {
+  width: 100%;
+  min-height: 28px;
+  accent-color: var(--accent);
+}
+
+.apply {
+  min-height: 48px;
+  border-radius: 10px;
+  border: 1.5px solid var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.apply.is-applied {
+  border-color: var(--green);
+  background: transparent;
+  color: var(--green);
+}
+
+.wi-forecasts {
+  flex: 2 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wi-forecasts > .note {
+  margin: 0;
+}
+
+.wi-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.wi-card {
+  gap: 8px;
+}
+
+.wi-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.wi-value {
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+.delta {
+  font-size: 13px;
+}
+
+.delta-same {
+  color: var(--muted);
+}
+
+.delta-good {
+  color: var(--green);
+}
+
+.delta-bad {
+  color: var(--red);
+}
+
+.horizon {
+  gap: 14px;
+}
+
+.lane {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lane-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.lane-label {
+  font-weight: 500;
+}
+
+.lane-text {
+  color: var(--text-2);
+}
+
+.lane-track {
+  position: relative;
+  display: block;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--pad-wait);
+}
+
+.lane-leave {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #3a4a6e;
+}
+
+.lane-dot {
+  position: absolute;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transform: translateX(-8px);
+  transition: left 0.3s ease;
+}
+
+.lane-ghost {
+  border: 2px solid;
+  background: transparent;
+}
+
+.horizon-axis {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}

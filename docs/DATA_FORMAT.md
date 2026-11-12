@@ -42,8 +42,8 @@ Agree on this **before** coding, so Meryeme (app/API) and Oussama (data/ML) can 
 
   "radiation": {
     "daily_dose_msv": 1.8,
-    "cumulative_dose_msv": 520.4,
-    "solar_event": "SEP-2024-05-11"
+    "cumulative_dose_msv": 523.2,
+    "solar_event": "FLR 2024-05-14 X8.7"
   },
 
   "bone": {
@@ -81,7 +81,7 @@ Agree on this **before** coding, so Meryeme (app/API) and Oussama (data/ML) can 
   },
   "forecast": {
     "bone_threshold_day": 540,
-    "radiation_limit_day": 455
+    "radiation_limit_day": 532
   },
   "actions": [
     { "priority": "now", "text": "Move to the shielded area during the solar event." },

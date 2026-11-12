@@ -1,0 +1,302 @@
+.day-bar {
+  flex: 1 1 100%;
+  gap: 12px;
+}
+
+.day-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.day-num {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 26px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.today {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.day-meta {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.day-meta .event {
+  color: var(--red);
+}
+
+.day-slider {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.day-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip-play {
+  margin-left: auto;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.body-panel {
+  flex: 1 1 340px;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+
+.body-panel.is-loading {
+  opacity: 0.75;
+}
+
+.body-panel .panel-head {
+  align-self: stretch;
+}
+
+.body {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+}
+
+.body path,
+.body circle,
+.body ellipse {
+  transition: stroke 0.4s, fill 0.4s;
+}
+
+.body-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.body-label {
+  cursor: pointer;
+}
+
+.aura {
+  opacity: 0.65;
+}
+
+.aura-alert {
+  animation: aura-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes aura-pulse {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.pill {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.pill-green {
+  background: color-mix(in srgb, var(--green) 14%, transparent);
+  color: var(--green);
+}
+
+.pill-yellow {
+  background: color-mix(in srgb, var(--yellow) 14%, transparent);
+  color: var(--yellow);
+}
+
+.pill-red {
+  background: color-mix(in srgb, var(--red) 14%, transparent);
+  color: var(--red);
+}
+
+.twin-side {
+  flex: 2 1 520px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sys-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sys {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 76px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--panel);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.sys-wide {
+  grid-column: span 2;
+}
+
+.sys.is-on {
+  background: var(--raised);
+}
+
+.sys-green.is-on {
+  border-color: var(--green);
+}
+
+.sys-yellow.is-on {
+  border-color: var(--yellow);
+}
+
+.sys-red.is-on {
+  border-color: var(--red);
+}
+
+.sys-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sys-name {
+  font-weight: 600;
+}
+
+.sys-metric {
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.detail {
+  gap: 18px;
+}
+
+.detail-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.kv {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kv p,
+.action-box p {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.action-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--raised);
+}
+
+.action-box p {
+  font-weight: 500;
+}
+
+.detail-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .sys-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chip-play {
+    margin-left: 0;
+  }
+}
+
+.ml {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+}
+
+.ml-anomaly {
+  border-color: var(--yellow);
+}
+
+.ml-title {
+  font-weight: 600;
+}
+
+.ml-anomaly .ml-title {
+  color: var(--yellow);
+}
+
+.ml-normal .ml-title {
+  color: var(--green);
+}
+
+.ml-factors {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ml-factors li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
