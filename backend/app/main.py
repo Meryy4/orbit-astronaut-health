@@ -7,18 +7,27 @@ import copy
 from typing import Literal
 
 import json
+import threading
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from . import alerts, rag
+from . import alerts, rag, report, timeline
 from .analysis import analyze, baseline, pvt_status
 from .mission import get_day, meta, mission_days
 from .whatif import defaults as plan_defaults
 from .whatif import simulate, suggestion
 
-app = FastAPI(title="ORBIT API", version="0.1.0")
+@asynccontextmanager
+async def lifespan(_app):
+    # Pre-compute the ML-flagged days in the background so the Mission screen opens instantly.
+    threading.Thread(target=timeline.warm_up, daemon=True).start()
+    yield
+
+
+app = FastAPI(title="ORBIT API", version="0.1.0", lifespan=lifespan)
 
 # Live check-ins, kept in memory only: cognitive results are not stored on disk (see README).
 CHECKINS: dict[tuple[str, int], dict] = {}
@@ -206,7 +215,10 @@ def tick_action(astronaut_id: str, n: int, action_id: str, body: ActionDone) -> 
     if action_id not in ids:
         raise HTTPException(404, f"No action '{action_id}' on day {n}")
     done = alerts.state(astronaut_id, n)["done"]
-    done.add(action_id) if body.done else done.discard(action_id)
+    if body.done:
+        done.setdefault(action_id, alerts.now_utc())
+    else:
+        done.pop(action_id, None)
     return _alert(astronaut_id, n)
 
 
@@ -266,3 +278,58 @@ def assistant_ask(body: Ask) -> StreamingResponse:
             yield json.dumps({"type": "error", "message": f"Local model error: {err}"}) + "\n"
 
     return StreamingResponse(lines(), media_type="application/x-ndjson")
+
+
+@app.get("/timeline/{astronaut_id}")
+def get_timeline(astronaut_id: str) -> dict:
+    _check_astronaut(astronaut_id)
+    return timeline.timeline()
+
+
+# --- Earth report -----------------------------------------------------------------------
+
+class ReportSend(BaseModel):
+    priority: Literal["routine", "priority", "urgent"]
+    questions: list[str] = Field(default_factory=list, max_length=10)
+    note: str = Field(default="", max_length=500)
+    attachments: list[str] = Field(default_factory=list, max_length=5)
+    packet_bytes: int = Field(ge=0, le=1_000_000)
+
+
+def _report(astronaut_id: str, n: int) -> dict:
+    rec = _with_checkin(_record(astronaut_id, n), CHECKINS.get((astronaut_id, n)))
+    an = analyze(n, rec)
+    al = alerts.build(astronaut_id, n, rec, an, meta()["earth_delay_min"])
+    sent = alerts.state(astronaut_id, n)["report_sent"]
+    return {
+        "mission_day": n,
+        "phase": rec["phase"],
+        "generated_at": alerts.now_utc(),
+        "level": al["level"],
+        "summary": report.summary(rec, an, al),
+        "trends": report.trends(n),
+        "actions_taken": report.actions_taken(al),
+        "suggested_questions": report.suggested_questions(rec, an),
+        "has_checkin": (astronaut_id, n) in CHECKINS,
+        "earth_delay_min": meta()["earth_delay_min"],
+        "review_min": report.REVIEW_MIN,
+        "sent": sent,
+    }
+
+
+@app.get("/report/{astronaut_id}/day/{n}")
+def get_report(astronaut_id: str, n: int) -> dict:
+    return _report(astronaut_id, n)
+
+
+@app.post("/report/{astronaut_id}/day/{n}/send")
+def send_report(astronaut_id: str, n: int, body: ReportSend) -> dict:
+    """Demo: records the send and returns the expected round trip (nothing actually leaves the machine)."""
+    _record(astronaut_id, n)
+    sent_at = alerts.now_utc()
+    alerts.state(astronaut_id, n)["report_sent"] = {
+        **body.model_dump(),
+        "sent_at": sent_at,
+        "steps": report.round_trip(sent_at, body.priority, meta()["earth_delay_min"]),
+    }
+    return _report(astronaut_id, n)

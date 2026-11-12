@@ -6,11 +6,10 @@ layer (app/ml.py: Isolation Forest + SHAP on the astronaut's own baseline) then 
 """
 
 import json
-import math
 from functools import lru_cache
 from statistics import mean
 
-from .mission import DATA_DIR, mission_days
+from .mission import DATA_DIR, meta, mission_days
 from .ml import detect
 
 LAPSE_MS = 355
@@ -125,16 +124,50 @@ def _radiation(r: dict) -> tuple[str, list[str]]:
     return worst(daily_s, cum_s), reasons
 
 
+# Usual dose per phase (Zeitlin 2013 cruise, Hassler 2014 Mars surface); the current phase uses the
+# astronaut's own baseline instead.
+NOMINAL_DOSE_MSV = {"transit": 1.84, "surface": 0.64, "return": 1.84}
+
+
+def _phase(day: int) -> str:
+    m = meta()
+    return "transit" if day <= m["transit_end_day"] else "surface" if day <= m["leave_mars_day"] else "return"
+
+
+def radiation_limit_day(day: int, cumulative: float, current_rate: float, limit: float) -> int | None:
+    """First day the cumulative dose reaches the limit, following the mission phases ahead."""
+    if cumulative >= limit:
+        return day
+    now = _phase(day)
+    for d in range(day + 1, day + 5000):
+        cumulative += current_rate if _phase(d) == now else NOMINAL_DOSE_MSV[_phase(d)]
+        if cumulative >= limit:
+            return d
+    return None
+
+
+# Usual bone loss per phase (%/month, ORBIT assumption from the HRP bone report, see data_gen/README.md).
+NOMINAL_BONE_PCT_MONTH = {"transit": 0.8, "surface": 0.4, "return": 0.8}
+
+
+def bone_threshold_day(day: int, loss_now: float, current_rate_month: float) -> int | None:
+    """First day the cumulative bone loss reaches the threshold, following the mission phases ahead."""
+    if loss_now >= BONE_THRESHOLD_PCT:
+        return day
+    now = _phase(day)
+    for d in range(day + 1, day + 5000):
+        loss_now += (current_rate_month if _phase(d) == now else NOMINAL_BONE_PCT_MONTH[_phase(d)]) / 30
+        if loss_now >= BONE_THRESHOLD_PCT:
+            return d
+    return None
+
+
 def forecast(day: int, rec: dict, base: dict) -> dict:
     """Linear forecasts: day the bone threshold and the career dose limit are reached."""
     limit = thresholds()["radiation"]["cumulative_mission_dose_msv"]["career_limit"]
-    left = limit - rec["radiation"]["cumulative_dose_msv"]
-    rate = base["daily_dose_msv"]
-    radiation_day = day if left <= 0 else day + math.ceil(left / rate) if rate > 0 else None
+    radiation_day = radiation_limit_day(day, rec["radiation"]["cumulative_dose_msv"], base["daily_dose_msv"], limit)
 
-    loss_now = -rec["bone"]["bmd_change_pct"]
-    per_day = _bone_rate_per_month(day) / 30
-    bone_day = day if loss_now >= BONE_THRESHOLD_PCT else day + math.ceil((BONE_THRESHOLD_PCT - loss_now) / per_day) if per_day > 0 else None
+    bone_day = bone_threshold_day(day, -rec["bone"]["bmd_change_pct"], _bone_rate_per_month(day))
     return {"bone_threshold_day": bone_day, "radiation_limit_day": radiation_day}
 
 

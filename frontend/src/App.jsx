@@ -4,6 +4,8 @@ import Twin from './screens/Twin.jsx'
 import WhatIf from './screens/WhatIf.jsx'
 import Alerts from './screens/Alerts.jsx'
 import Assistant from './screens/Assistant.jsx'
+import Mission from './screens/Mission.jsx'
+import Report from './screens/Report.jsx'
 import { MISSION } from './lib/mission.js'
 import './App.css'
 
@@ -26,18 +28,6 @@ function Logo() {
   )
 }
 
-function ComingSoon({ label }) {
-  return (
-    <main className="main">
-      <section className="panel coming">
-        <span className="eyebrow">Not built yet</span>
-        <h1>{label}</h1>
-        <p>This screen is designed in the mockups and comes next.</p>
-      </section>
-    </main>
-  )
-}
-
 export default function App() {
   const [screen, setScreen] = useState('twin')
   // Day shown by the Alerts screen: today, or the day the Twin was showing.
@@ -48,11 +38,16 @@ export default function App() {
     if (id === 'alerts') setAlertDay(day ?? MISSION.day)
     setScreen(id)
   }
+  // Day the Twin opens on (e.g. from a click on the Mission timeline).
+  const [twinStart, setTwinStart] = useState({ day: MISSION.day, key: 0 })
+  const openTwinDay = (day) => {
+    setTwinStart((t) => ({ day, key: t.key + 1 }))
+    setScreen('twin')
+  }
   const askAssistant = (text) => {
     setPrompt((p) => ({ text, key: p.key + 1 }))
     setScreen('assistant')
   }
-  const current = SCREENS.find((s) => s.id === screen)
 
   return (
     <div className="app">
@@ -83,19 +78,17 @@ export default function App() {
         </div>
       </header>
 
-      {screen === 'twin' ? (
-        <Twin mission={MISSION} onNavigate={navigate} />
-      ) : screen === 'checkin' ? (
-        <CheckIn mission={MISSION} />
-      ) : screen === 'whatif' ? (
-        <WhatIf mission={MISSION} onNavigate={navigate} />
-      ) : screen === 'alerts' ? (
-        <Alerts mission={MISSION} day={alertDay} onNavigate={navigate} onAsk={askAssistant} />
-      ) : screen === 'assistant' ? (
-        <Assistant key={prompt.key} mission={MISSION} prompt={prompt.text} />
-      ) : (
-        <ComingSoon label={current.label} />
-      )}
+      {
+        {
+          twin: <Twin key={twinStart.key} mission={MISSION} onNavigate={navigate} startDay={twinStart.day} />,
+          checkin: <CheckIn mission={MISSION} />,
+          mission: <Mission mission={MISSION} onOpenDay={openTwinDay} />,
+          whatif: <WhatIf mission={MISSION} onNavigate={navigate} />,
+          alerts: <Alerts mission={MISSION} day={alertDay} onNavigate={navigate} onAsk={askAssistant} />,
+          assistant: <Assistant key={prompt.key} mission={MISSION} prompt={prompt.text} />,
+          report: <Report mission={MISSION} />,
+        }[screen]
+      }
     </div>
   )
 }
