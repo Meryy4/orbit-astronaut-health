@@ -7,18 +7,27 @@ import copy
 from typing import Literal
 
 import json
+import threading
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from . import alerts, rag
+from . import alerts, rag, timeline
 from .analysis import analyze, baseline, pvt_status
 from .mission import get_day, meta, mission_days
 from .whatif import defaults as plan_defaults
 from .whatif import simulate, suggestion
 
-app = FastAPI(title="ORBIT API", version="0.1.0")
+@asynccontextmanager
+async def lifespan(_app):
+    # Pre-compute the ML-flagged days in the background so the Mission screen opens instantly.
+    threading.Thread(target=timeline.warm_up, daemon=True).start()
+    yield
+
+
+app = FastAPI(title="ORBIT API", version="0.1.0", lifespan=lifespan)
 
 # Live check-ins, kept in memory only: cognitive results are not stored on disk (see README).
 CHECKINS: dict[tuple[str, int], dict] = {}
@@ -266,3 +275,9 @@ def assistant_ask(body: Ask) -> StreamingResponse:
             yield json.dumps({"type": "error", "message": f"Local model error: {err}"}) + "\n"
 
     return StreamingResponse(lines(), media_type="application/x-ndjson")
+
+
+@app.get("/timeline/{astronaut_id}")
+def get_timeline(astronaut_id: str) -> dict:
+    _check_astronaut(astronaut_id)
+    return timeline.timeline()

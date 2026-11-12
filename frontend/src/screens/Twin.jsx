@@ -114,8 +114,8 @@ function Pill({ status }) {
   return <span className={`pill pill-${status}`}>{STATUS_LABEL[status]}</span>
 }
 
-export default function Twin({ mission, onNavigate }) {
-  const [day, setDay] = useState(mission.day)
+export default function Twin({ mission, onNavigate, startDay }) {
+  const [day, setDay] = useState(startDay ?? mission.day)
   const [data, setData] = useState(null) // { rec, analysis }
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)

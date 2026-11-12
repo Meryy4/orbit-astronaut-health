@@ -1,0 +1,275 @@
+.mission-head {
+  flex: 1 1 100%;
+  gap: 12px;
+}
+
+.mission-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mission-day {
+  font-size: 40px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.pill-accent {
+  align-self: flex-start;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+}
+
+.mission-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.jump {
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.jump-red {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.jump-yellow {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.phases {
+  position: relative;
+  display: flex;
+  height: 28px;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 11px;
+}
+
+.phases > span:not(.phase-marker) {
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #22304f;
+  color: var(--text-2);
+}
+
+.phases > span:nth-child(2) {
+  background: #2a2640;
+}
+
+.phase-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--text);
+}
+
+.chart-panel {
+  flex: 3 1 560px;
+  gap: 12px;
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+}
+
+.chart-bg {
+  fill: var(--pad-wait);
+}
+
+.zone {
+  stroke-width: 1;
+  opacity: 0.4;
+}
+
+.zone-yellow {
+  stroke: var(--yellow);
+}
+
+.zone-red {
+  stroke: var(--red);
+}
+
+.limit {
+  stroke: var(--red);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}
+
+.phase-line {
+  stroke: var(--line);
+}
+
+.curve {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.curve-forecast {
+  stroke-dasharray: 5 6;
+  opacity: 0.6;
+}
+
+.limit-day {
+  stroke: var(--yellow);
+  stroke-dasharray: 3 4;
+}
+
+.today-line {
+  stroke: var(--muted);
+  stroke-dasharray: 2 3;
+}
+
+.cursor {
+  stroke: var(--text);
+}
+
+.cursor-dot {
+  fill: var(--text);
+}
+
+.cursor-dot.is-future {
+  fill: var(--bg);
+  stroke: var(--text);
+  stroke-width: 2;
+}
+
+.chart-label {
+  fill: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.chart-label.tone-red {
+  fill: var(--red);
+}
+
+.chart-label.tone-yellow {
+  fill: var(--yellow);
+}
+
+.lane-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.event-lane {
+  position: relative;
+  height: 32px;
+  border-radius: 6px;
+  background: var(--pad-wait);
+}
+
+.mark {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.mark-event {
+  width: 4px;
+  height: 26px;
+  border-radius: 2px;
+  background: var(--red);
+}
+
+.mark-ml {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--yellow);
+}
+
+.mark:hover,
+.mark:focus-visible {
+  transform: translate(-50%, -50%) scale(1.4);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.key {
+  display: inline-block;
+  margin-left: 6px;
+}
+
+.key-event {
+  width: 4px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--red);
+}
+
+.key-ml {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--yellow);
+}
+
+.mission-side {
+  flex: 2 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-card {
+  gap: 4px;
+  padding: 18px 20px;
+}
+
+.stat-card p {
+  margin: 0;
+}
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.stat-big {
+  font-size: 28px;
+}
+
+.stat-mid {
+  font-size: 20px;
+}
+
+.stat-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.event-text {
+  color: var(--red);
+  font-weight: 500;
+}

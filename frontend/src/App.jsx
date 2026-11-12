@@ -4,6 +4,7 @@ import Twin from './screens/Twin.jsx'
 import WhatIf from './screens/WhatIf.jsx'
 import Alerts from './screens/Alerts.jsx'
 import Assistant from './screens/Assistant.jsx'
+import Mission from './screens/Mission.jsx'
 import { MISSION } from './lib/mission.js'
 import './App.css'
 
@@ -48,6 +49,12 @@ export default function App() {
     if (id === 'alerts') setAlertDay(day ?? MISSION.day)
     setScreen(id)
   }
+  // Day the Twin opens on (e.g. from a click on the Mission timeline).
+  const [twinStart, setTwinStart] = useState({ day: MISSION.day, key: 0 })
+  const openTwinDay = (day) => {
+    setTwinStart((t) => ({ day, key: t.key + 1 }))
+    setScreen('twin')
+  }
   const askAssistant = (text) => {
     setPrompt((p) => ({ text, key: p.key + 1 }))
     setScreen('assistant')
@@ -84,7 +91,9 @@ export default function App() {
       </header>
 
       {screen === 'twin' ? (
-        <Twin mission={MISSION} onNavigate={navigate} />
+        <Twin key={twinStart.key} mission={MISSION} onNavigate={navigate} startDay={twinStart.day} />
+      ) : screen === 'mission' ? (
+        <Mission mission={MISSION} onOpenDay={openTwinDay} />
       ) : screen === 'checkin' ? (
         <CheckIn mission={MISSION} />
       ) : screen === 'whatif' ? (

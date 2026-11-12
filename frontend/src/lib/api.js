@@ -45,6 +45,7 @@ export const api = {
   day: (id, n) => request(`/mission/${id}/day/${n}`),
   days: (id) => request(`/mission/${id}/days`),
   analysis: (id, n) => request(`/analysis/${id}/day/${n}`),
+  timeline: (id) => request(`/timeline/${id}`),
   checkin: (payload) => request('/checkin', { method: 'POST', body: JSON.stringify(payload) }),
   whatif: (body) => request('/whatif', { method: 'POST', body: JSON.stringify(body) }),
   plan: (body) => request('/plan', { method: 'POST', body: JSON.stringify(body) }),
