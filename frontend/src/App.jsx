@@ -5,6 +5,7 @@ import WhatIf from './screens/WhatIf.jsx'
 import Alerts from './screens/Alerts.jsx'
 import Assistant from './screens/Assistant.jsx'
 import Mission from './screens/Mission.jsx'
+import Report from './screens/Report.jsx'
 import { MISSION } from './lib/mission.js'
 import './App.css'
 
@@ -24,18 +25,6 @@ function Logo() {
       <circle cx="14" cy="14" r="5" fill="var(--accent)" />
       <ellipse cx="14" cy="14" rx="12" ry="5" fill="none" stroke="var(--accent)" strokeWidth="1.5" transform="rotate(-25 14 14)" />
     </svg>
-  )
-}
-
-function ComingSoon({ label }) {
-  return (
-    <main className="main">
-      <section className="panel coming">
-        <span className="eyebrow">Not built yet</span>
-        <h1>{label}</h1>
-        <p>This screen is designed in the mockups and comes next.</p>
-      </section>
-    </main>
   )
 }
 
@@ -59,7 +48,6 @@ export default function App() {
     setPrompt((p) => ({ text, key: p.key + 1 }))
     setScreen('assistant')
   }
-  const current = SCREENS.find((s) => s.id === screen)
 
   return (
     <div className="app">
@@ -90,21 +78,17 @@ export default function App() {
         </div>
       </header>
 
-      {screen === 'twin' ? (
-        <Twin key={twinStart.key} mission={MISSION} onNavigate={navigate} startDay={twinStart.day} />
-      ) : screen === 'mission' ? (
-        <Mission mission={MISSION} onOpenDay={openTwinDay} />
-      ) : screen === 'checkin' ? (
-        <CheckIn mission={MISSION} />
-      ) : screen === 'whatif' ? (
-        <WhatIf mission={MISSION} onNavigate={navigate} />
-      ) : screen === 'alerts' ? (
-        <Alerts mission={MISSION} day={alertDay} onNavigate={navigate} onAsk={askAssistant} />
-      ) : screen === 'assistant' ? (
-        <Assistant key={prompt.key} mission={MISSION} prompt={prompt.text} />
-      ) : (
-        <ComingSoon label={current.label} />
-      )}
+      {
+        {
+          twin: <Twin key={twinStart.key} mission={MISSION} onNavigate={navigate} startDay={twinStart.day} />,
+          checkin: <CheckIn mission={MISSION} />,
+          mission: <Mission mission={MISSION} onOpenDay={openTwinDay} />,
+          whatif: <WhatIf mission={MISSION} onNavigate={navigate} />,
+          alerts: <Alerts mission={MISSION} day={alertDay} onNavigate={navigate} onAsk={askAssistant} />,
+          assistant: <Assistant key={prompt.key} mission={MISSION} prompt={prompt.text} />,
+          report: <Report mission={MISSION} />,
+        }[screen]
+      }
     </div>
   )
 }

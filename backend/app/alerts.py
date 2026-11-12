@@ -14,12 +14,12 @@ SYSTEM_LABEL = {
     "bone": "Bone",
 }
 
-# (astronaut_id, day) -> {"done": set[str], "acked_at": str | None, "plan": dict | None}
+# (astronaut_id, day) -> {"done": {action_id: time ticked}, "acked_at", "plan", "report_sent"}
 STATE: dict[tuple[str, int], dict] = {}
 
 
 def state(astronaut_id: str, day: int) -> dict:
-    return STATE.setdefault((astronaut_id, day), {"done": set(), "acked_at": None, "plan": None})
+    return STATE.setdefault((astronaut_id, day), {"done": {}, "acked_at": None, "plan": None, "report_sent": None})
 
 
 def _headline(st: dict, rec: dict, analysis: dict) -> tuple[str, str]:
@@ -71,7 +71,7 @@ def build(astronaut_id: str, day: int, rec: dict, analysis: dict, earth_delay_mi
                               f"+{p['shield_h']} h/day in shielded quarters."})
     groups = []
     for priority, label in (("now", "Now"), ("today", "Today"), ("escalate", "Escalate if")):
-        g = [{**a, "done": a["id"] in s["done"]} for a in items if a["priority"] == priority]
+        g = [{**a, "done": a["id"] in s["done"], "done_at": s["done"].get(a["id"])} for a in items if a["priority"] == priority]
         if g:
             groups.append({"priority": priority, "label": label, "items": g})
     return {
