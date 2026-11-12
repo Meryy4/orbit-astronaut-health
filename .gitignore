@@ -11,3 +11,7 @@ node_modules/
 # Secrets and OS files
 .env
 .DS_Store
+.pytest_cache/
+
+# RAG index (built from rag_docs/, see backend/app/rag.py)
+data/rag_index/
