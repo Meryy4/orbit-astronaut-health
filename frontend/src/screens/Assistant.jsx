@@ -31,7 +31,7 @@ function Turn({ turn }) {
   const [open, setOpen] = useState(null)
   return (
     <article className="turn">
-      <p className="question">{turn.question}</p>
+      <p className="chat-question">{turn.question}</p>
       <div className="panel reply">
         {turn.state === 'searching' && <p className="note">Searching 7 NASA documents…</p>}
         {turn.answer && <Answer turn={turn} onCite={(n) => setOpen(open === n ? null : n)} />}

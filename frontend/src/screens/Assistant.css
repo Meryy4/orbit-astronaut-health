@@ -77,7 +77,7 @@
   gap: 8px;
 }
 
-.question {
+.chat-question {
   align-self: flex-end;
   max-width: 80%;
   margin: 0;
