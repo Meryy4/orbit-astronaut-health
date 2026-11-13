@@ -19,9 +19,11 @@ START = date(2023, 3, 29)  # mission day 1
 END = date(2024, 5, 31)
 CHUNK_DAYS = 59
 OUT = Path(__file__).resolve().parents[1] / "data" / "donki_events.json"
-# Two public hosts serve the same DONKI data. The first needs an api.nasa.gov key (DEMO_KEY works, rate limited).
+# Public hosts serving the same DONKI data, tried in order. api.nasa.gov needs a key (DEMO_KEY works, rate
+# limited). The variant with a trailing slash is there because api.nasa.gov sometimes answers 404 without it.
 HOSTS = [
     "https://api.nasa.gov/DONKI/{kind}?startDate={start}&endDate={end}&api_key={key}",
+    "https://api.nasa.gov/DONKI/{kind}/?startDate={start}&endDate={end}&api_key={key}",
     "https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get/{kind}?startDate={start}&endDate={end}",
 ]
 
@@ -31,7 +33,7 @@ def fetch(kind: str, start: date, end: date, key: str) -> list[dict]:
     for host in HOSTS:
         url = host.format(kind=kind, start=start.isoformat(), end=end.isoformat(), key=key)
         try:
-            with urllib.request.urlopen(url, timeout=60) as resp:
+            with urllib.request.urlopen(url, timeout=25) as resp:
                 body = resp.read().decode()
             return json.loads(body) if body.strip() else []
         except Exception as err:  # try the next host
@@ -63,11 +65,20 @@ def sep(e: dict) -> dict:
 def main() -> None:
     key = os.environ.get("NASA_API_KEY", "DEMO_KEY")
     events = []
+    # SEP events matter most (they drive the dose). Flares are a bonus: if their endpoint is down,
+    # keep going without them instead of failing the whole download.
+    kinds = {"SEP": sep, "FLR": flare}
     start = START
     while start <= END:
         end = min(start + timedelta(days=CHUNK_DAYS), END)
-        events += [flare(e) for e in fetch("FLR", start, end, key)]
-        events += [sep(e) for e in fetch("SEP", start, end, key)]
+        for kind, parse in list(kinds.items()):
+            try:
+                events += [parse(e) for e in fetch(kind, start, end, key)]
+            except RuntimeError as err:
+                if kind == "SEP":
+                    raise
+                print(f"Warning: skipping {kind} (flares) for the whole range.\n{err}")
+                del kinds[kind]
         print(f"{start} -> {end}: {len(events)} events so far")
         start = end + timedelta(days=1)
         time.sleep(1)
@@ -76,6 +87,7 @@ def main() -> None:
         "source": "NASA DONKI (https://kauai.ccmc.gsfc.nasa.gov/DONKI/)",
         "fetched": date.today().isoformat(),
         "range": [START.isoformat(), END.isoformat()],
+        "kinds": sorted(kinds),
         "events": events,
     }, indent=1))
     print(f"Saved {len(events)} events to {OUT}")

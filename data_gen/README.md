@@ -26,7 +26,7 @@ Mission day 409 replays **2024-05-11** (day 1 = 2023-03-29), so every DONKI even
 |---|---|---|
 | GCR dose, transit | 1.84 mSv/day | Zeitlin et al. 2013 |
 | GCR dose, Mars surface | 0.64 mSv/day | Hassler et al. 2014 |
-| Extra dose on an SEP day | +12 mSv transit, +4 mSv surface, half for 2 more days | ORBIT assumption |
+| Extra dose on an SEP day | +0.5 mSv transit, +0.15 mSv surface, half for 2 more days | ORBIT assumption: DONKI lists every detection (106 records on 27 days), and SEPs were only a small share of the MSL cruise dose (Zeitlin et al. 2013) |
 | Extra dose on an X-class flare day | +1.5 mSv transit, +0.5 mSv surface | ORBIT assumption |
 | Sleep | 7.3 ± 0.25 h | Barger et al. 2014 report ~6.1 h in flight; Nova is assumed to be a good sleeper |
 | PVT baseline | 248 ms mean RT, lapse > 355 ms | Basner et al. 2011 (definition); value is an assumption |
@@ -39,8 +39,9 @@ Mission day 409 replays **2024-05-11** (day 1 = 2023-03-29), so every DONKI even
 | Days | What happens |
 |---|---|
 | 263–266 | Fictional illness episode: fever up to 38.2 °C, HR up, HRV down |
-| 409 | X5.8 flare and SEP. Nova moves into the storm shelter |
-| 410–411 | SEP continues. Short nights in the shelter (4.2–4.5 h), lapses rise |
-| 412 | X8.7 flare. Cumulative dose 523.2 mSv (career limit ~day 532). Nova still rates her fatigue 2/5 |
+| 407–408 | Real SEP onsets (DONKI, May 9–10 2024): the storm builds up |
+| 409 | SEP (May 11 2024). Nova moves into the storm shelter |
+| 410–411 | SEP peak, new SEP onset on May 13 2024. Short nights in the shelter (4.2–4.5 h), lapses rise |
+| 412 | SEP still ongoing (the X8.7 flare of May 14 2024 is not in the download: the DONKI flare endpoint was down). Cumulative dose 522.6 mSv (career limit day 532). Nova still rates her fatigue 2/5 |
 
-The storm dose is set so the cumulative dose reaches 523.2 mSv on day 412, whatever the earlier events add.
+The storm dose is set so the cumulative dose reaches 522.6 mSv on day 412, whatever the earlier events add.

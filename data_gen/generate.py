@@ -39,14 +39,16 @@ META = {
 # --- Radiation ------------------------------------------------------------------------
 TRANSIT_DOSE_MSV = 1.84  # Zeitlin et al. 2013 (MSL cruise)
 SURFACE_DOSE_MSV = 0.64  # Hassler et al. 2014 (Curiosity RAD, Gale crater)
-# ASSUMPTION: extra dose on the day of a replayed DONKI event (the Mars atmosphere shields part of it).
-SEP_EXTRA_MSV = {"transit": 12.0, "surface": 4.0}
+# ASSUMPTION: extra dose on the onset day of a replayed DONKI SEP (half on the ongoing days). DONKI lists
+# every detection, most of them small events, and during MSL's cruise SEPs added only a small share to the
+# galactic cosmic ray dose (Zeitlin et al. 2013). The Mars atmosphere shields part of the flux on the surface.
+SEP_EXTRA_MSV = {"transit": 0.5, "surface": 0.15}
 FLARE_X_EXTRA_MSV = {"transit": 1.5, "surface": 0.5}
 SEP_ONGOING_DAYS = 2  # ASSUMPTION: elevated flux for 2 days after the SEP onset
-# Storyline: the dose of days 409-412 is set so the cumulative dose is 523.2 mSv on day 412
+# Storyline: the dose of days 409-412 is set so the cumulative dose is 522.6 mSv on day 412
 # (career limit 600 mSv reached around day 532). Split of the storm dose over the 4 days:
 STORM_SPLIT = {409: 0.07, 410: 0.53, 411: 0.30, 412: 0.10}
-TARGET_CUMULATIVE_412 = 523.2
+TARGET_CUMULATIVE_412 = 522.6
 
 # --- Sleep and vigilance ----------------------------------------------------------------
 # Barger et al. 2014 report ~6.1 h/night in flight on average. ASSUMPTION: Nova is a good
@@ -142,6 +144,10 @@ def generate() -> dict:
             extra = FLARE_X_EXTRA_MSV[ph]
         if day not in STORM_SPLIT:
             dose += extra
+        elif ev is None and last_sep:
+            # Storyline: the May 2024 storm lasts through day 412, so the last SEP stays "ongoing"
+            # even if no flare data was downloaded.
+            ev = {**last_sep[1], "ongoing": True}
         doses[day], day_events[day] = dose, ev
     pre_storm = sum(d for day, d in doses.items() if day not in STORM_SPLIT)
     storm_total = TARGET_CUMULATIVE_412 - pre_storm
