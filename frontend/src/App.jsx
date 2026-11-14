@@ -7,6 +7,7 @@ import Assistant from './screens/Assistant.jsx'
 import Mission from './screens/Mission.jsx'
 import Report from './screens/Report.jsx'
 import { MISSION } from './lib/mission.js'
+import { api } from './lib/api.js'
 import './App.css'
 
 const SCREENS = [
@@ -51,6 +52,12 @@ export default function App() {
 
   return (
     <div className="app">
+      {api.demo && (
+        <div className="demo-banner mono" role="note">
+          Online demo · data computed by the real ORBIT backend · the assistant replays answers recorded from the local model ·{' '}
+          <a href="https://github.com/Meryy4/orbit-astronaut-health#run-it-locally">run it locally</a>
+        </div>
+      )}
       <header className="topbar">
         <div className="brand">
           <Logo />

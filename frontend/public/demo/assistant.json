@@ -1,0 +1,268 @@
+{
+ "model": "qwen3.5:4b",
+ "mission_day": 412,
+ "answers": [
+  {
+   "question": "What should I do during a solar particle event?",
+   "answer": "Move immediately to the radiation shelter module as your current action plan requires [4][6]. Postpone any planned EVA until this event concludes and ensure no critical tasks occur today unless authorized by updated data. If you experience nausea or vomiting, start the acute radiation protocol without delay per your established escalation rules [7].",
+   "sources": [
+    {
+     "n": 1,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 65,
+     "excerpt": "ogenic potential. 1 Sv = 1000 millisieverts (mSv). Solar Particle Event (SPE): Injections of energetic electrons, protons, alpha particles, and heavier particles into interplanetary space. These particles are accelerated to near relativistic speeds by the interplanetary shock wav",
+     "reference": false
+    },
+    {
+     "n": 2,
+     "title": "HRP Evidence Report: Acute Radiation Syndromes from SPEs (2016)",
+     "doc": "01_hrp-acute-radiation-spe.pdf",
+     "page": 57,
+     "excerpt": "twell W, Badavi FF, Miller J (1999) Contribution of High Charge and Energy (HZE) Ions During Solar-Particle Event of September 19, 1989. NASA TP-1999-209320 Kim M.Y., Hu X, Cucinotta FA (2005) Effect of Shielding Materials from SPEs on the Lunar and Mars Surface. AIAA Space 2005,",
+     "reference": false
+    },
+    {
+     "n": 3,
+     "title": "HRP Evidence Report: Acute Radiation Syndromes from SPEs (2016)",
+     "doc": "01_hrp-acute-radiation-spe.pdf",
+     "page": 6,
+     "excerpt": "oradic and occur with little warning. During a SPE, the Sun releases a large amount of energetic particles. Although the composition of the particle type varies slightly from event to event, those of most concern for human missions on average consist of 96% protons, 4% helium ion",
+     "reference": false
+    },
+    {
+     "n": 4,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 77,
+     "excerpt": "diation exposure shall be less than 600 mSv. This limit is universal for all ages and sexes. 4.8.3 Short-Term Radiation Limits \u2013 Solar Particle Events [V1 4031] The program shall protect crewmembers from exposure to the design reference solar particle event (SPE) environment prot",
+     "reference": false
+    },
+    {
+     "n": 5,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 40,
+     "excerpt": "An individual crewmember's total career effective radiation dose due to spaceflight radiation exposure shall be less than 600 mSv. This limit is universal for all ages and sexes.",
+     "reference": true
+    },
+    {
+     "n": 6,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 42,
+     "excerpt": "The program shall protect crewmembers from exposure to the design reference Solar Particle Event (SPE) environment proton energy spectrum (sum of the October 1989 events) to less than an effective dose of 250 mSv. [Rationale: The 250 mSv effective dose threshold was chosen to min",
+     "reference": true
+    },
+    {
+     "n": 7,
+     "title": "HRP Evidence Report: Acute Radiation Syndromes from SPEs (2016)",
+     "doc": "01_hrp-acute-radiation-spe.pdf",
+     "page": 11,
+     "excerpt": "Doses that are in the range of 0.5 to 1 Gy cause minor acute damage to the hematopoietic system and mild prodromal effects (nausea, vomiting, anorexia, and fatigue) in a small number of irradiated persons (Anno et al. 1989).",
+     "reference": true
+    }
+   ]
+  },
+  {
+   "question": "How does sleep loss affect my performance?",
+   "answer": "Your current fatigue rating is low at 2/5, but your reaction time being 34% slower and having five lapses indicates significant impairment likely due to circadian desynchronization rather than just total hours slept [1][2]. Research shows that sleep-restricted individuals often feel a false sense of recovery initially before performance deteriorates rapidly during subsequent wakefulness periods [1]. Since you are currently awake, your cumulative effect from chronic and acute sleep loss may be causing these lapses more quickly than usual.",
+   "sources": [
+    {
+     "n": 1,
+     "title": "HRP Evidence Report: Sleep Loss, Circadian Desynchronization and Work Overload (2016)",
+     "doc": "03_hrp-sleep-circadian.pdf",
+     "page": 27,
+     "excerpt": "27 performance across wakefulness, particularly during the circadian \u201cnight\u201d even after the 10-hour sleep o pportunity. The deterioration in performance during the biological night brought on by acute sleep loss was significantly greater than the impairment induced by acute sleep",
+     "reference": false
+    },
+    {
+     "n": 2,
+     "title": "HRP Evidence Report: Sleep Loss, Circadian Desynchronization and Work Overload (2016)",
+     "doc": "03_hrp-sleep-circadian.pdf",
+     "page": 6,
+     "excerpt": " performance including: 1) nightly sleep duration (chronic sleep loss); 2) number of hours awake (acute sleep loss); 3) sleep inertia (impaired performance u pon waking) and 4) circadian phase (time of day). Studies of shift workers in a variety of industries have shown that comp",
+     "reference": false
+    },
+    {
+     "n": 3,
+     "title": "HRP Evidence Report: Sleep Loss, Circadian Desynchronization and Work Overload (2016)",
+     "doc": "03_hrp-sleep-circadian.pdf",
+     "page": 5,
+     "excerpt": "-duty during spaceflight. Although ground -based evidence supports the notion that sleep loss, circadian desynchronization and work overload lead to performance impairment, inconsistency in the measures used to evaluate performance during spacefl ight make it difficult to evaluat",
+     "reference": false
+    },
+    {
+     "n": 4,
+     "title": "HRP Evidence Report: Sleep Loss, Circadian Desynchronization and Work Overload (2016)",
+     "doc": "03_hrp-sleep-circadian.pdf",
+     "page": 26,
+     "excerpt": "26 Figure 3. Performance lapses for time in bed (TIB) over 14 days of sleep restriction (Van Dongen et al, 2003). Figure 4. PVT performance lapses for TIB over 7 days sleep restriction (Belenky et al, 2003) Building upon the sem inal work of Belenky and Van Dongen, several other ",
+     "reference": false
+    }
+   ]
+  },
+  {
+   "question": "What is the career radiation exposure limit?",
+   "answer": "The universal career effective dose limit for all ages and sexes is less than 600 mSv [5]. Your current cumulative exposure of 522.6 mSv represents approximately 87% of this total allowable threshold, leaving a remaining margin before reaching the maximum permissible level defined in NASA-STD-3001 Volume 1 Revision C [4][5].",
+   "sources": [
+    {
+     "n": 1,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 41,
+     "excerpt": "NASA-STD-3001, VOLUME 1, REVISION C 41 of 87 induced death (REID)) above the non-exposed baseline mean. 3% was chosen due to being in the family of individual lifestyle changes (e.g., smoking, lack of exercise). Individual crewmember career dose includes all past spaceflight radi",
+     "reference": false
+    },
+    {
+     "n": 2,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 78,
+     "excerpt": "NASA-STD-3001, VOLUME 1, REVISION C 78 of 87 NASA-STD-3001, Volume 2 Section Title Number Requirement Text Applicable (Enter Yes or No) Comments 4.8.4 Crew Radiation Limits for Nuclear Technologies [V1 4032] Radiological exposure from nuclear technologies emitting ionizing radiat",
+     "reference": false
+    },
+    {
+     "n": 3,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 46,
+     "excerpt": "NASA-STD-3001, VOLUME 1, REVISION C 46 of 87 [V1 4030] Career Space Permissible Exposure Limits for Spaceflight Radiation. The design reference environment is the 2009 solar minimum spectrum as described by the Badhwar O\u2019Neill 2020 GCR Model. During solar minimum, vehicle shieldi",
+     "reference": false
+    },
+    {
+     "n": 4,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 77,
+     "excerpt": "diation exposure shall be less than 600 mSv. This limit is universal for all ages and sexes. 4.8.3 Short-Term Radiation Limits \u2013 Solar Particle Events [V1 4031] The program shall protect crewmembers from exposure to the design reference solar particle event (SPE) environment prot",
+     "reference": false
+    },
+    {
+     "n": 5,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 40,
+     "excerpt": "An individual crewmember's total career effective radiation dose due to spaceflight radiation exposure shall be less than 600 mSv. This limit is universal for all ages and sexes.",
+     "reference": true
+    },
+    {
+     "n": 6,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 42,
+     "excerpt": "The program shall protect crewmembers from exposure to the design reference Solar Particle Event (SPE) environment proton energy spectrum (sum of the October 1989 events) to less than an effective dose of 250 mSv. [Rationale: The 250 mSv effective dose threshold was chosen to min",
+     "reference": true
+    },
+    {
+     "n": 7,
+     "title": "HRP Evidence Report: Acute Radiation Syndromes from SPEs (2016)",
+     "doc": "01_hrp-acute-radiation-spe.pdf",
+     "page": 11,
+     "excerpt": "Doses that are in the range of 0.5 to 1 Gy cause minor acute damage to the hematopoietic system and mild prodromal effects (nausea, vomiting, anorexia, and fatigue) in a small number of irradiated persons (Anno et al. 1989).",
+     "reference": true
+    }
+   ]
+  },
+  {
+   "question": "How does exercise protect bone during long missions?",
+   "answer": "Resistive exercise on the ARED helps preserve bone mass by suppressing biomarkers of resorption when combined with bisphosphonates like alendronate [1]. Countermeasures aim to keep hip and spine mineral density at or above 95% of pre-mission values throughout long-duration flights [2][3]. Without these measures, skeletal fragility increases the risk for fractures during future deep space missions.",
+   "sources": [
+    {
+     "n": 1,
+     "title": "HRP Evidence Report: Bone Fracture (2024)",
+     "doc": "02_hrp-bone-fracture-2024.pdf",
+     "page": 37,
+     "excerpt": "Risk of Bone Fracture due to Spaceflight-induced Changes to Bone 37 HRP-F07-ERFT.R2 (bisphosphonate vs. ARED). 2. Bisphosphonate Extension Study The results of the bisphosphonate flight study had indicated that resistive exercise performed on the ARED (Advanced Resistive Exercise",
+     "reference": false
+    },
+    {
+     "n": 2,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 39,
+     "excerpt": "s the mission impact of renal stones may be higher than that of the BMD loss alone. Changes in bone mineral density with spaceflight and with aging have been well characterized in the crewmember cohort. Longitudinal monitoring of BMD is utilized to assess declines in response to ",
+     "reference": false
+    },
+    {
+     "n": 3,
+     "title": "HRP Evidence Report: Bone Fracture (2024)",
+     "doc": "02_hrp-bone-fracture-2024.pdf",
+     "page": 35,
+     "excerpt": "t groups have similar physical activity levels (data not shown; see Figure 2) . Skeletal fragility with LD spaceflights may increase the risk for hip and spine fractures during LTH or possibly during future DRMs . A retrospective analysis to evaluate the influence of ARED exercis",
+     "reference": false
+    },
+    {
+     "n": 4,
+     "title": "HRP Evidence Report: Bone Fracture (2024)",
+     "doc": "02_hrp-bone-fracture-2024.pdf",
+     "page": 54,
+     "excerpt": ".1016/j.bone.2019.07.013. Epub 2019 Aug 7. Sibonga JD, Spector ER (2020) Use of quantitative computed tomography to assess for clinicallyrelevant skeletal effects of prolonged spaceflight on astronaut hips. J Clin Densitometry: Assessment & Management of Musculoskeletal Health 23",
+     "reference": false
+    }
+   ]
+  },
+  {
+   "question": "Solar storm while your vigilance is low. What should I do now?",
+   "answer": "Your current radiation dose today is only 3.36 mSv, which remains well below the 250 mSv protection target for a single solar particle event [6] and does not reach levels causing mild acute effects like nausea or vomiting [7]. Since your vigilance is low with five lapses on the PVT task due to sleep loss, you should strictly avoid any critical tasks such as EVA until your reaction time improves. You are already following the correct plan by staying in the radiation shelter module and aiming for 7 hours of sleep tonight to help restore your cognitive function [4]. If nausea or vomiting develops despite these measures, immediately start the acute radiation protocol and call the crew medical officer [1][2].",
+   "sources": [
+    {
+     "n": 1,
+     "title": "HRP Evidence Report: Acute Radiation Syndromes from SPEs (2016)",
+     "doc": "01_hrp-acute-radiation-spe.pdf",
+     "page": 33,
+     "excerpt": "32 users to upload their own thickness distributions utilizing user -defined material properties for assessment and optimization. In addition, optimization of storm shelters has been considered. Walker et al. (2013) and Simon et al. (2013) recently analyzed a trade space of diffe",
+     "reference": false
+    },
+    {
+     "n": 2,
+     "title": "HRP Evidence Report: Acute Radiation Syndromes from SPEs (2016)",
+     "doc": "01_hrp-acute-radiation-spe.pdf",
+     "page": 29,
+     "excerpt": "ribution of an average cycle. While the expected frequency of SPEs is strongly influenced by the phase of the solar activity cycle, the SPE occurrences themselves are random in nature. The onset dates of a total of 370 SPEs during solar cycles 19 \u201323 are marked in the top of Fig ",
+     "reference": false
+    },
+    {
+     "n": 3,
+     "title": "HRP Evidence Report: Cognitive or Behavioral Conditions (2016)",
+     "doc": "04_hrp-behavioral-health.pdf",
+     "page": 47,
+     "excerpt": "e him a view of New York City, \u201cIt was pretty difficult to think about work after that, though we had some to do, but on the next orbit we crossed the US farther south. All three of us were working one or two cameras to try to get views of New York or Washington\u201d (Culbertson 2001",
+     "reference": false
+    },
+    {
+     "n": 4,
+     "title": "HRP Evidence Report: Sleep Loss, Circadian Desynchronization and Work Overload (2016)",
+     "doc": "03_hrp-sleep-circadian.pdf",
+     "page": 24,
+     "excerpt": "then influence one another in synergistic or antagonistic ways. There is a general consensus confirming that vigilance is the component of cognition that is most consistently and significantly affected by periods without sleep. The psychomotor vigilance task (PVT) has emerged as ",
+     "reference": false
+    },
+    {
+     "n": 5,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 40,
+     "excerpt": "An individual crewmember's total career effective radiation dose due to spaceflight radiation exposure shall be less than 600 mSv. This limit is universal for all ages and sexes.",
+     "reference": true
+    },
+    {
+     "n": 6,
+     "title": "NASA-STD-3001 Vol. 1 Rev C (2023)",
+     "doc": "07_nasa-std-3001-vol1-revC.pdf",
+     "page": 42,
+     "excerpt": "The program shall protect crewmembers from exposure to the design reference Solar Particle Event (SPE) environment proton energy spectrum (sum of the October 1989 events) to less than an effective dose of 250 mSv. [Rationale: The 250 mSv effective dose threshold was chosen to min",
+     "reference": true
+    },
+    {
+     "n": 7,
+     "title": "HRP Evidence Report: Acute Radiation Syndromes from SPEs (2016)",
+     "doc": "01_hrp-acute-radiation-spe.pdf",
+     "page": 11,
+     "excerpt": "Doses that are in the range of 0.5 to 1 Gy cause minor acute damage to the hematopoietic system and mild prodromal effects (nausea, vomiting, anorexia, and fatigue) in a small number of irradiated persons (Anno et al. 1989).",
+     "reference": true
+    }
+   ]
+  }
+ ]
+}

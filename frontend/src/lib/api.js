@@ -1,4 +1,7 @@
 // Small client for the ORBIT API (backend/). In dev, Vite forwards /api to port 8010.
+// The online demo (VITE_DEMO=1, GitHub Pages) uses demoApi instead: same interface, no backend.
+import { demoApi } from './demoApi.js'
+
 const BASE = import.meta.env.VITE_API_URL ?? '/api'
 
 async function request(path, options = {}) {
@@ -38,7 +41,7 @@ async function stream(path, body, onLine) {
   if (buffer.trim()) onLine(JSON.parse(buffer))
 }
 
-export const api = {
+const backendApi = {
   assistantStatus: () => request('/assistant/status'),
   ask: (body, onLine) => stream('/assistant/ask', body, onLine),
   mission: (id) => request(`/mission/${id}`),
@@ -56,3 +59,5 @@ export const api = {
   tick: (id, n, actionId, done) =>
     request(`/alert/${id}/day/${n}/actions/${actionId}`, { method: 'POST', body: JSON.stringify({ done }) }),
 }
+
+export const api = import.meta.env.VITE_DEMO === '1' ? demoApi : backendApi

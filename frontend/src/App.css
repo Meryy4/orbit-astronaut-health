@@ -110,3 +110,16 @@
     padding-right: 16px;
   }
 }
+
+.demo-banner {
+  padding: 8px 16px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
+  border-bottom: 1px solid var(--line);
+  color: var(--text-2);
+  font-size: 12px;
+  text-align: center;
+}
+
+.demo-banner a {
+  color: var(--accent);
+}

@@ -20,6 +20,8 @@ https://github.com/Meryy4/orbit-astronaut-health
 
 _Paste the 30-second video link here (YouTube or Google Drive, viewable by anyone with the link)._
 
+Try the prototype online: https://meryy4.github.io/orbit-astronaut-health/ (no install; data computed by our backend, What-if and vigilance test run live).
+
 ## Project details
 
 **The problem.** On the way to Mars, a message to Earth takes up to 20 minutes one way. There is no doctor on call, and inflight health information already relies heavily on crew self-report. Under stress, astronauts may say "I'm fine" when their reactions, sleep and heart say otherwise.
@@ -36,7 +38,7 @@ _Paste the 30-second video link here (YouTube or Google Drive, viewable by anyon
 - **Offline assistant:** answers questions from seven NASA documents (NASA-STD-3001 and HRP Evidence Reports) with page citations, using a local open-weight model. Verified NASA thresholds keep it from overstating risks.
 - **Earth report:** a compact report for the flight surgeon, about 1 KB compressed, with the 19-minute delay each way shown.
 
-**How we built it.** React frontend, FastAPI backend, scikit-learn and SHAP for the personal model, Ollama with qwen3.5:4b and nomic-embed-text for retrieval-augmented answers, and a Python generator that builds 412 mission days calibrated on published NASA research and replays real DONKI events. The project has 54 automated tests.
+**How we built it.** React frontend, FastAPI backend, scikit-learn and SHAP for the personal model, Ollama with qwen3.5:4b and nomic-embed-text for retrieval-augmented answers, and a Python generator that builds 412 mission days calibrated on published NASA research and replays real DONKI events. The project has 56 automated tests.
 
 **Why it matters.** As missions go farther, crews must detect problems early and decide on their own. ORBIT turns scattered signals into a personal, explained picture and a plan, covering the five NASA hazards: Radiation, Isolation and confinement, Distance from Earth, Gravity fields, and Hostile closed environments.
 
