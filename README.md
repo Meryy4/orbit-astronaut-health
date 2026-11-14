@@ -4,7 +4,7 @@
 
 *NASA International Space Apps Challenge 2026 · Casablanca*
 
-🎬 **Demo video (30 s):** _link coming soon_ · 📚 **Sources:** [SOURCES.md](SOURCES.md)
+🚀 **Try it online:** https://meryy4.github.io/orbit-astronaut-health/ · 🎬 **Demo video (30 s):** _link coming soon_ · 📚 **Sources:** [SOURCES.md](SOURCES.md)
 
 ![ORBIT digital twin on mission day 412, during a replayed solar storm](docs/screenshots/twin.jpg)
 
@@ -80,7 +80,18 @@ flowchart LR
 | Anomaly detection | scikit-learn Isolation Forest, SHAP TreeExplainer | [`backend/app/ml.py`](backend/app/ml.py) |
 | Assistant | Ollama (`qwen3.5:4b`, `nomic-embed-text`), pypdf, streamed answers with citations | [`backend/app/rag.py`](backend/app/rag.py) |
 | Mission data | Python generator, real NASA DONKI events | [`data_gen/`](data_gen/README.md) |
-| Tests | 38 pytest + 16 node:test | `backend/tests/`, `frontend/src/lib/*.test.js` |
+| Tests | 38 pytest + 18 node:test | `backend/tests/`, `frontend/src/lib/*.test.js` |
+
+## Online demo
+
+**https://meryy4.github.io/orbit-astronaut-health/** runs in the browser with no install. GitHub Pages cannot run Python or a language model, so:
+
+- every screen shows data **computed by the real backend** and exported to JSON ([`backend/scripts/export_demo.py`](backend/scripts/export_demo.py));
+- the **What-if model runs live in JavaScript**, and a test checks it matches the Python backend exactly on 80 random plans;
+- the **PVT check-in runs live** in your browser;
+- the **assistant replays answers recorded from the local model** ([`backend/scripts/record_assistant.py`](backend/scripts/record_assistant.py)) for the suggested questions; we reviewed each recorded answer before publishing it.
+
+The demo is rebuilt and published by [`.github/workflows/pages.yml`](.github/workflows/pages.yml) on every push to `main`.
 
 ## Run it locally
 

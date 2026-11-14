@@ -113,7 +113,13 @@ export default function Assistant({ mission, prompt }) {
         </div>
         <span className={ready ? 'offline mono' : 'offline is-off mono'}>
           <span className="dot" />
-          {status === null ? 'Checking…' : ready ? `Offline · runs on board · ${status.model}` : 'Local model not ready'}
+          {status === null
+            ? 'Checking…'
+            : status.demo
+              ? `Online demo · answers recorded from ${status.model}`
+              : ready
+                ? `Offline · runs on board · ${status.model}`
+                : 'Local model not ready'}
         </span>
       </div>
 
