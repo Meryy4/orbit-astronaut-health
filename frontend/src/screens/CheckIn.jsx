@@ -13,16 +13,19 @@ const QUESTIONS = [
 ]
 
 const STATUS_LABEL = { green: 'Green', yellow: 'Amber', red: 'Red' }
+// Presses ignored for this long after a response (double clicks), shorter than the 2 s minimum wait.
+const REFRACTORY_MS = 400
 
 // The PVT runs on refs + timers, and React state only mirrors what is shown.
-// Responses use pointerdown (not click) because click fires on release and adds ~100 ms.
+// The running counter is written straight into the DOM (counterRef), not through React state:
+// re-rendering the screen 60 times per second made Safari drop clicks during the stimulus.
 function usePvt(mode) {
   const [phase, setPhase] = useState('intro') // intro | wait | go | result
   const [trials, setTrials] = useState([])
-  const [counter, setCounter] = useState(0)
+  const counterRef = useRef(null)
   const [feedback, setFeedback] = useState(null)
   const [testMs, setTestMs] = useState(0)
-  const r = useRef({ phase: 'intro', trials: [], timer: null, raf: null, clock: null, t0: 0, start: 0 })
+  const r = useRef({ phase: 'intro', trials: [], timer: null, raf: null, clock: null, t0: 0, start: 0, lastResponse: -Infinity })
 
   const clearAll = () => {
     clearTimeout(r.current.timer)
@@ -61,14 +64,15 @@ function usePvt(mode) {
       finishOrNext()
       return
     }
-    setCounter(Math.round(ms))
+    if (counterRef.current) counterRef.current.textContent = Math.round(ms)
     r.current.raf = requestAnimationFrame(loop)
   }
 
   const showStimulus = () => {
-    setCounter(0)
     go('go')
-    // t0 is taken on the next frame, when the counter is actually painted.
+    // t0 is set now, then refined on the next frame, when the counter is actually painted
+    // (if frames are delayed, e.g. a background tab, the time stays correct).
+    r.current.t0 = performance.now()
     r.current.raf = requestAnimationFrame(() => {
       r.current.t0 = performance.now()
       loop()
@@ -94,6 +98,8 @@ function usePvt(mode) {
 
   const respond = () => {
     const p = r.current.phase
+    // A double click (or a trackpad bounce) right after a response is not a false start.
+    if (performance.now() - r.current.lastResponse < REFRACTORY_MS) return
     if (p === 'intro' || p === 'result') return start()
     if (p === 'wait') {
       record(makeTrial(null))
@@ -102,7 +108,8 @@ function usePvt(mode) {
     }
     if (p === 'go') {
       cancelAnimationFrame(r.current.raf)
-      const t = makeTrial(performance.now() - r.current.t0)
+      r.current.lastResponse = performance.now()
+      const t = makeTrial(r.current.lastResponse - r.current.t0)
       record(t)
       setFeedback(
         t.falseStart
@@ -122,7 +129,7 @@ function usePvt(mode) {
     go('intro')
   }
 
-  return { phase, trials, counter, feedback, testMs, respond, reset }
+  return { phase, trials, counterRef, feedback, testMs, respond, reset }
 }
 
 function Stat({ label, value, tone }) {
@@ -177,7 +184,29 @@ export default function CheckIn({ mission }) {
   const allAnswered = QUESTIONS.every((q) => answers[q.key] !== null)
   const m = MODES[mode]
 
-  const { respond } = pvt
+  const { respond, counterRef } = pvt
+  // Native listeners on the pad (not React props), so a response is never lost: pointerdown first,
+  // mousedown / touchstart as fallbacks for older browsers, de-duplicated by time.
+  const respondRef = useRef(respond)
+  useEffect(() => {
+    respondRef.current = respond
+  })
+  useEffect(() => {
+    const pad = padRef.current
+    let last = -Infinity
+    const handler = (e) => {
+      e.preventDefault()
+      const now = performance.now()
+      if (now - last < 80) return // same press seen as pointer + mouse/touch event
+      last = now
+      respondRef.current()
+    }
+    const opts = { passive: false }
+    for (const type of ['pointerdown', 'mousedown', 'touchstart']) pad.addEventListener(type, handler, opts)
+    return () => {
+      for (const type of ['pointerdown', 'mousedown', 'touchstart']) pad.removeEventListener(type, handler, opts)
+    }
+  }, [])
   // Space bar responds while the test runs, or when the pad has focus.
   const onKey = useCallback(
     (e) => {
@@ -252,10 +281,6 @@ export default function CheckIn({ mission }) {
           type="button"
           className={`pad pad-${pvt.phase}`}
           aria-label={pvt.phase === 'go' ? 'Respond now' : 'Reaction pad'}
-          onPointerDown={(e) => {
-            e.preventDefault()
-            pvt.respond()
-          }}
         >
           {pvt.phase === 'intro' && (
             <span className="pad-msg">
@@ -269,7 +294,11 @@ export default function CheckIn({ mission }) {
               {pvt.feedback && <span className={`mono fb fb-${pvt.feedback.kind}`}>{pvt.feedback.text}</span>}
             </span>
           )}
-          {pvt.phase === 'go' && <span className="mono pad-counter">{pvt.counter}</span>}
+          {pvt.phase === 'go' && (
+            <span ref={counterRef} className="mono pad-counter">
+              0
+            </span>
+          )}
           {done && (
             <span className="pad-msg">
               <span className="pad-big">Test complete</span>

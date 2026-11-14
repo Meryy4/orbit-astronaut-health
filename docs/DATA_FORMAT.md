@@ -42,7 +42,7 @@ Agree on this **before** coding, so Meryeme (app/API) and Oussama (data/ML) can 
 
   "radiation": {
     "daily_dose_msv": 1.8,
-    "cumulative_dose_msv": 523.2,
+    "cumulative_dose_msv": 522.6,
     "solar_event": "FLR 2024-05-14 X8.7"
   },
 

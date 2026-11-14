@@ -23,6 +23,7 @@ Status:
 | Status | Reference | What we took from it | Link |
 |---|---|---|---|
 | 📄 | Russell B. et al. (2023). The value of a spaceflight clinical decision support system for earth-independent medical operations. *npj Microgravity*. | Positioning: onboard decision support for an autonomous crew (EIMO) | https://doi.org/10.1038/s41526-023-00284-1 |
+| 📄 | NASA Human Research Program. 5 Hazards of Human Spaceflight (RIDGE). | The five hazards ORBIT covers: Radiation, Isolation & confinement, Distance from Earth, Gravity fields, Hostile & closed environments | https://www.nasa.gov/hrp/hazards/ |
 | 📄 | NASA. Earth Independent Medical Operations (EIMO) overview. NTRS 20230016189. | Decision support advises, does not replace the crew medical officer; limited bandwidth and storage | https://ntrs.nasa.gov/citations/20230016189 |
 | 📄 | NASA Digital Astronaut Project: computational bone remodeling toolchain for exercise countermeasures. NTRS 20180004789 and NASA/TM-2018-219938 (NTRS 20190026643). | Exercise needed per individual is unclear and no prescription tool exists, which motivates the What-if simulator | https://ntrs.nasa.gov/citations/20180004789 · https://ntrs.nasa.gov/citations/20190026643 |
 | 📄 | NASA report on inflight health data and crew self-report. NTRS 20160012380. | Inflight health information relies heavily on crew self-report | https://ntrs.nasa.gov/api/citations/20160012380/downloads/20160012380.pdf |
@@ -48,8 +49,8 @@ All 7 are public NASA documents. Local copies live in `rag_docs/` (not committed
 
 | Status | Source | Used for | Link |
 |---|---|---|---|
-| ⬜ | NASA DONKI: Solar Flares (FLR) | Real flares in the mission simulation | https://api.nasa.gov/DONKI/FLR?startDate=2024-05-10&endDate=2024-05-14&api_key=DEMO_KEY |
-| ⬜ | NASA DONKI: Solar Energetic Particles (SEP) | Real SEP events | https://api.nasa.gov/DONKI/SEP?startDate=2024-05-10&endDate=2024-05-14&api_key=DEMO_KEY |
+| ⬜ | NASA DONKI: Solar Flares (FLR) | Real flares in the mission simulation (endpoint returned 404 on 2026-11-13, not used yet) | https://api.nasa.gov/DONKI/FLR?startDate=2024-05-10&endDate=2024-05-14&api_key=DEMO_KEY |
+| ✅ | NASA DONKI: Solar Energetic Particles (SEP) | Real SEP events replayed on 61 mission days (106 records, 2023-03-29 to 2024-05-31), saved in `data/donki_events.json` | https://api.nasa.gov/DONKI/SEP?startDate=2024-05-10&endDate=2024-05-14&api_key=DEMO_KEY |
 | ⬜ | NASA Open Science Data Repository (OSDR) | Background | https://osdr.nasa.gov/ |
 
 Demo event: **May 2024 solar superstorm** (NOAA AR3664), flares X5.8 (May 11) and X8.7 (May 14). Check the SEP level (S2 or S3) in the DONKI response.
@@ -62,7 +63,7 @@ Demo event: **May 2024 solar superstorm** (NOAA AR3664), flares X5.8 (May 11) an
 | Mood/stress red threshold | Distress score > 2 SD above personal baseline | Operational assumption |
 | Mission dose orange/red | 400 / 500 mSv | Safety margin below the 600 mSv career limit |
 | What-if model coefficients (exercise → bone loss rate, shielded hours → dose, sleep → PVT lapses) | Illustrative linear values in the mockup | To be fitted from the HRP evidence reports before the demo |
-| Extra dose from replayed solar events | SEP: +12 mSv/day transit, +4 mSv/day Mars surface (half for 2 more days); X flare: +1.5 / +0.5 mSv | Order-of-magnitude assumption; Mars atmosphere shields part of the flux |
+| Extra dose from replayed solar events | SEP: +0.5 mSv transit, +0.15 mSv Mars surface on the onset day (half for 2 more days); X flare: +1.5 / +0.5 mSv | DONKI lists every SEP detection, mostly small events; SEPs were a small share of the MSL cruise dose (Zeitlin 2013); the Mars atmosphere shields part of the flux |
 | Nova's sleep | 7.3 ± 0.25 h/night | Above the ~6.1 h flight average (Barger 2014): fictional good sleeper |
 | Sleep debt → vigilance | +0.7 lapses and +4.5 % reaction time per hour of debt over 3 nights | Cumulative effect of sleep restriction (HRP sleep report), linear assumption |
 | Bone loss rate | 0.8 %/month in transit, 0.4 %/month on Mars | Below the 1–1.5 %/month without countermeasures (HRP bone report): daily exercise and 0.38 g |
@@ -91,7 +92,16 @@ Demo event: **May 2024 solar superstorm** (NOAA AR3664), flares X5.8 (May 11) an
 | LLM model: `qwen3.5:4b` (via Ollama) | Apache 2.0 (checked with `ollama show --license`) | https://ollama.com/library/qwen3.5 |
 | Embedding model: `nomic-embed-text` (via Ollama) | Apache 2.0 (checked with `ollama show --license`) | https://ollama.com/library/nomic-embed-text |
 
+## Demo video assets
+
+| Asset | License / origin | Link |
+|---|---|---|
+| Music: "Tension" by paulyudin | Pixabay Content License (free, no attribution required) | https://pixabay.com/music/ |
+| Cinematic shots of the fictional astronaut | Generated with Google Gemini (Veo) | https://gemini.google.com/ |
+| App screens | Screen recordings of the ORBIT prototype | this repository |
+
 ## AI usage disclosure
 
-- An AI assistant (Claude) was used for planning, documentation and coding help.
+- An AI assistant (Claude) was used for planning, documentation, coding help and video editing.
+- Google Gemini (Veo) generated the cinematic shots in the demo video. All app screens in the video are real recordings of the prototype.
 - ORBIT itself uses a local open-source LLM (see above) for the onboard assistant.
