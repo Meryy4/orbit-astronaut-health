@@ -13,6 +13,8 @@ const QUESTIONS = [
 ]
 
 const STATUS_LABEL = { green: 'Green', yellow: 'Amber', red: 'Red' }
+// Presses ignored for this long after a response (double clicks), shorter than the 2 s minimum wait.
+const REFRACTORY_MS = 400
 
 // The PVT runs on refs + timers, and React state only mirrors what is shown.
 // The running counter is written straight into the DOM (counterRef), not through React state:
@@ -23,7 +25,7 @@ function usePvt(mode) {
   const counterRef = useRef(null)
   const [feedback, setFeedback] = useState(null)
   const [testMs, setTestMs] = useState(0)
-  const r = useRef({ phase: 'intro', trials: [], timer: null, raf: null, clock: null, t0: 0, start: 0 })
+  const r = useRef({ phase: 'intro', trials: [], timer: null, raf: null, clock: null, t0: 0, start: 0, lastResponse: -Infinity })
 
   const clearAll = () => {
     clearTimeout(r.current.timer)
@@ -96,6 +98,8 @@ function usePvt(mode) {
 
   const respond = () => {
     const p = r.current.phase
+    // A double click (or a trackpad bounce) right after a response is not a false start.
+    if (performance.now() - r.current.lastResponse < REFRACTORY_MS) return
     if (p === 'intro' || p === 'result') return start()
     if (p === 'wait') {
       record(makeTrial(null))
@@ -104,7 +108,8 @@ function usePvt(mode) {
     }
     if (p === 'go') {
       cancelAnimationFrame(r.current.raf)
-      const t = makeTrial(performance.now() - r.current.t0)
+      r.current.lastResponse = performance.now()
+      const t = makeTrial(r.current.lastResponse - r.current.t0)
       record(t)
       setFeedback(
         t.falseStart
