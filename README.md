@@ -135,6 +135,15 @@ python3 data_gen/generate.py
 - **The What-if coefficients are illustrative.** They are linear assumptions to be fitted on the HRP evidence reports.
 - **The assistant can be wrong.** It answers only from retrieved NASA excerpts and verified reference thresholds, and it supports, not replaces, the crew medical officer.
 
+## Use of AI tools
+
+As the Space Apps rules require, we disclose where AI tools were used:
+
+- **Code and documentation:** written with the help of an AI coding assistant (Anthropic Claude). The team designed the concept, reviewed, tested and validated the result.
+- **Demo video:** the cinematic shots of the fictional astronaut were generated with Google Gemini (Veo) and carry a visible "AI-generated footage" watermark. All app screens in the video are real recordings of the prototype. Music: "Tension" by paulyudin (Pixabay License).
+- **Inside ORBIT:** the onboard assistant uses a local open-weight model (qwen3.5:4b via Ollama) over NASA documents; anomaly detection uses scikit-learn and SHAP.
+- No NASA logos or branding appear in AI-generated content.
+
 ## Team
 
 - **Meryeme**: AI/ML and full-stack

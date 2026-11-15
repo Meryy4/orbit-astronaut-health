@@ -75,7 +75,7 @@ Full list with links and licenses: https://github.com/Meryy4/orbit-astronaut-hea
 ## Use of artificial intelligence
 
 - **Inside ORBIT:** a local open-source language model (qwen3.5:4b via Ollama) answers questions from retrieved NASA document excerpts and cites them; scikit-learn Isolation Forest with SHAP detects and explains anomalies.
-- **To build ORBIT:** an AI assistant (Claude) helped with planning, coding, documentation and video editing. Google Gemini (Veo) generated the cinematic shots of the fictional astronaut in the demo video. All app screens in the video are real recordings of our prototype.
+- **To build ORBIT:** an AI assistant (Claude) helped with planning, coding, documentation and video editing. Google Gemini (Veo) generated the cinematic shots of the fictional astronaut in the demo video. These shots carry a visible "AI-generated footage" watermark. All app screens in the video are real recordings of our prototype.
 
 ## Tags
 
